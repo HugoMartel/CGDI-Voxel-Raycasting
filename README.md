@@ -1,6 +1,6 @@
-# CGDI Iris Project
+# CGDI Voxel Raycasting
 
-Description
+Project for the CGDI course at ENS de Lyon.
 
 ## Building
 
