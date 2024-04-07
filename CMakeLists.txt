@@ -15,11 +15,11 @@ message(STATUS "Deps: ${PROJECT_SOURCE_DIR}/deps")
 
 ############################################################
 # DEPS
-include(geometry-central)
 include(polyscope)
 
 ############################################################
 # Executable
-add_executable(raycast src/main.cpp src/scene.cpp)
-target_link_libraries(raycast polyscope geometry-central)
+include_directories(include)
+add_executable(raycast src/main.cpp)
+target_link_libraries(raycast polyscope)
 
