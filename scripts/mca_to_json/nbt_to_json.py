@@ -2,6 +2,7 @@ from pynbt import NBTFile
 from sys import argv
 from os import path
 import json
+from math import log2, ceil
 
 in_path:str = ""
 out_path:str = ""
@@ -54,20 +55,22 @@ with open(in_path, 'rb') as io:
     # print(nbt.pretty()) #! DEBUG
 
     # JSON Object to output
-    data = {}
+    output = {}
 
     # https://minecraft.wiki/w/Chunk_format
 
     # xPos: X position of the chunk
     # zPos: Z position of the chunk
     # (in absolute chunks from world (x, z) origin, not relative to the region).
-    # print('xPos', nbt['xPos'].value) #! DEBUG
-    # print('zPos', nbt['zPos'].value) #! DEBUG
-    data['xPos'] = nbt['xPos'].value
-    data['zPos'] = nbt['zPos'].value
+    if verbose:
+        print('xPos', nbt['xPos'].value) #! DEBUG
+        print('zPos', nbt['zPos'].value) #! DEBUG
+    output['xPos'] = nbt['xPos'].value
+    output['zPos'] = nbt['zPos'].value
     # yPos: Lowest Y section position in the chunk (e.g. -4 in 1.18).
-    # print('yPos', nbt['yPos'].value) #! DEBUG
-    data['yPos'] = nbt['yPos'].value
+    if verbose:
+        print('yPos', nbt['yPos'].value) #! DEBUG
+    output['yPos'] = nbt['yPos'].value
     # X increases East, decreases West
     # Y increases upward, decreases downward
     # Z increases South, decreases North
@@ -90,7 +93,8 @@ with open(in_path, 'rb') as io:
         sections.append({})
 
         # The Y position of this section.
-        # print('Y', tag['Y'].value) #! DEBUG
+        if verbose:
+            print('Y', tag['Y'].value) #! DEBUG
         sections[-1]['Y'] = tag['Y'].value
 
         block_states = tag['block_states']
@@ -98,6 +102,9 @@ with open(in_path, 'rb') as io:
         # Set of different block states used in this particular section.
         palette_list = []
         for block in block_states['palette']:
+            if verbose:
+                print("PALETTE:")
+                print(block.pretty())
             palette_list.append({})
             palette_list[-1]['Name'] = block['Name'].value
             if 'Properties' in block:
@@ -113,14 +120,36 @@ with open(in_path, 'rb') as io:
         # If only one block state is present in the palette, this field is not required
         # and the block fills the whole section.
         if 'data' in block_states:
-            # print(list(block_states['data'].value)) #! DEBUG
-            sections[-1]['data'] = list(block_states['data'].value)
+            # This length is set to the minimum amount of bits required to represent 
+            # the largest index in the palette, and then set to a minimum size of 4 bits.
+            # Since 1.16, the indices are not packed across multiple elements of the array,
+            # meaning that if there is no more space in a given 64-bit integer for the whole
+            # next index, it starts instead at the first (lowest) bit of the next 64-bit integer.
+            idlen = max(ceil(log2(len(palette_list))), 4)
+            if verbose:
+                print(f"IDLEN={idlen}")
 
-    data['sections'] = sections
+            # Convert the 64 integer array into an array of bit arrays
+            data_bits = [
+                bin(integer)[2:].zfill(64)
+                for integer in block_states['data'].value
+            ]
+            # Compute our ids from slices of idlen from the bit arrays
+            data = [
+                int(long[i:i+idlen], 2)
+                for long in data_bits
+                for i in range(0, len(long), idlen)
+            ]
+            if verbose:
+                print(data)
 
-    # print(data) #! DEBUG
+            sections[-1]['data'] = data
+
+    output['sections'] = sections
 
     # Write JSON to file
     with open(out_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+        json.dump(output, f, ensure_ascii=False, indent=4)
+        if verbose:
+            print(f"Written JSON to {out_path} successfully")
 
