@@ -1,8 +1,10 @@
 /**
  * @file scene.hpp
  */
-#ifndef __SCENE__
-#define __SCENE__
+#ifndef __RAYCAST_SCENE__
+#define __RAYCAST_SCENE__
+
+#include <string>
 
 #include "voxel.hpp"
 
@@ -33,6 +35,10 @@ public:
             height, std::vector<Voxel>(depth, Voxel()))
         );
     }
+    /**
+     * TODO
+     */
+    SandboxScene(const std::string& chunkFileName, const std::string& blocksFileName);
 
     // Methods
     /**
@@ -62,5 +68,5 @@ public:
     }
 };
 
-#endif//__SCENE__
+#endif//__RAYCAST_SCENE__
 

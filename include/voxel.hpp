@@ -1,9 +1,10 @@
 /**
  * @file voxel.hpp
  */
-#ifndef __VOXEL__
-#define __VOXEL__
+#ifndef __RAYCAST_VOXEL__
+#define __RAYCAST_VOXEL__
 
+#include <iostream>
 #include <vector>
 #include <array>
 
@@ -47,7 +48,7 @@ public:
  * Structure storing an Axis Aligned Bounding Box.
  */
 struct AABB {
-private:
+public:
     // Attributes
     /**
      * Minimum point.
@@ -85,6 +86,14 @@ private:
     ) : minX(centerX-sideLength/2.), minY(centerY-sideLength/2.), minZ(centerZ-sideLength/2.),
         maxX(centerX+sideLength/2.), maxY(centerY+sideLength/2.), maxZ(centerZ+sideLength/2.) {}
 };
+
+/**
+ * Stream writing operator override for a bouding box object.
+ * @param   os      Stream object to write into.
+ * @param   box     AABB to display.
+ * @return  Stream where the box has been written.
+ */
+std::ostream& operator<<(std::ostream& os, const AABB& box);
 
 /**
  * Voxel class storing geometry elements using AABB.
@@ -145,5 +154,5 @@ public:
     }
 };
 
-#endif//__VOXEL__
+#endif//__RAYCAST_VOXEL__
 

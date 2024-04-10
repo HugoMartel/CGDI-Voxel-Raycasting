@@ -2,6 +2,8 @@
  * @file main.cpp
  */
 #include <iostream>
+#include <filesystem>
+#include <cassert>
 
 #include <polyscope/polyscope.h>
 #include <polyscope/surface_mesh.h>
@@ -9,6 +11,7 @@
 #include "scene.hpp"
 
 // == DEFINES
+#define BLOCKS_FILE_LOCATION "../voxels/1_20_1_blocks.json"
 
 // == FUNCTIONS
 /**
@@ -34,17 +37,20 @@ void uiCallback() {
 
 // == MAIN
 int main(int argc, char* argv[]) {
-    // Initialize polyscope
-    polyscope::init();
+    assert(std::filesystem::exists(BLOCKS_FILE_LOCATION));
 
     // Load chunk file
     if (argc == 1) {
         std::cout << "Missing JSON chunk file to load\n";
         exit(0);
+    } else if (!std::filesystem::exists(argv[1])) {
+        std::cerr << "No file located at " << argv[1] << '\n';
+        exit(-1);
     }
 
     // Load the JSON file into a scene
-    SandboxScene scene(10,10,10);
+    //SandboxScene scene(10,10,10);
+    SandboxScene scene(argv[1], BLOCKS_FILE_LOCATION);
 
     // Build the Mesh
     //! Example TEST cube
@@ -66,6 +72,9 @@ int main(int argc, char* argv[]) {
         {0,4,7,3},// Right
         {1,2,6,5} // Left
     });
+
+    // Initialize polyscope
+    polyscope::init();
 
     // Register the mesh with polyscope
     polyscope::SurfaceMesh* poly_surface = polyscope::registerSurfaceMesh(
