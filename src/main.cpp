@@ -52,36 +52,11 @@ int main(int argc, char* argv[]) {
     //SandboxScene scene(10,10,10);
     SandboxScene scene(argv[1], BLOCKS_FILE_LOCATION);
 
-    // Build the Mesh
-    //! Example TEST cube
-    std::vector<std::array<double,3>> test_cube_vertices({
-        {0.,0.,0.},
-        {1.,0.,0.},
-        {1.,1.,0.},
-        {0.,1.,0.},
-        {0.,0.,1.},
-        {1.,0.,1.},
-        {1.,1.,1.},
-        {0.,1.,1.}
-    });
-    std::vector<std::vector<size_t>> test_cube_faces({
-        {0,3,2,1},// Front
-        {0,1,5,4},// Bottom
-        {4,5,6,7},// Back
-        {2,3,7,6},// Top
-        {0,4,7,3},// Right
-        {1,2,6,5} // Left
-    });
-
     // Initialize polyscope
     polyscope::init();
 
-    // Register the mesh with polyscope
-    polyscope::SurfaceMesh* poly_surface = polyscope::registerSurfaceMesh(
-        "Test cube",
-        test_cube_vertices,
-        test_cube_faces
-    );
+    // Build the Mesh
+    polyscope::SurfaceMesh* chunkSurface = scene.createMesh("Chunk");
 
     // Finish setting up the initial Polyscope scene 
     init();

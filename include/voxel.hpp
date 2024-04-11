@@ -152,7 +152,18 @@ public:
     inline void addAABB(const AABB& box) {
         contents.emplace_back(box);
     }
+
+    // Friend functions
+    friend std::ostream& operator<<(std::ostream& os, const Voxel& v);
 };
+
+/**
+ * Stream writing operator override for a voxel object.
+ * @param   os      Stream object to write into.
+ * @param   v       Voxel to display.
+ * @return  Stream where the box has been written.
+ */
+std::ostream& operator<<(std::ostream& os, const Voxel& v);
 
 #endif//__RAYCAST_VOXEL__
 

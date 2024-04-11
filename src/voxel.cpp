@@ -9,3 +9,11 @@ std::ostream& operator<<(std::ostream& os, const AABB& box) {
     return os;
 }
 
+std::ostream& operator<<(std::ostream& os, const Voxel& v) {
+    os << "Voxel[";
+    for (const AABB& box : v.contents)
+        os << box << ", ";
+    os << ']';
+    return os;
+}
+

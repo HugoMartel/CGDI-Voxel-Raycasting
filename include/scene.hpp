@@ -6,6 +6,8 @@
 
 #include <string>
 
+#include <polyscope/surface_mesh.h>
+
 #include "voxel.hpp"
 
 template<typename T>
@@ -36,7 +38,9 @@ public:
         );
     }
     /**
-     * TODO
+     * Sandbox scene constructor that takes a chunk JSON file as input and contructs a scene from it.
+     * @param   chunkFileName   File location of the chunk JSON file.
+     * @param   blocksFileName  File location of all the blocks AABB and properties.
      */
     SandboxScene(const std::string& chunkFileName, const std::string& blocksFileName);
 
@@ -47,7 +51,7 @@ public:
      * @return  Voxel object found at that given position.
      */
     Voxel getVoxel(const VoxelPosition& position) const {
-        return voxels[position.x][position.y][position.z];
+        return voxels[position.y][position.z][position.x];
     }
     /**
      * Getter for a voxel in the scene given a position.
@@ -56,7 +60,7 @@ public:
      * @return  Reference to the Voxel object found at that given position.
      */
     Voxel& getVoxel(const VoxelPosition& position) {
-        return voxels[position.x][position.y][position.z];
+        return voxels[position.y][position.z][position.x];
     }
     /**
      * Setter of a voxel at a given position in the scene.
@@ -64,8 +68,14 @@ public:
      * @param   voxel       Voxel to set.
      */
     void setVoxel(const VoxelPosition& position, const Voxel& voxel) {
-        voxels[position.x][position.y][position.z] = voxel;
+        voxels[position.y][position.z][position.x] = voxel;
     }
+    /**
+     * Constructs a Polyscope surface mesh from the voxel scene.
+     * @param   name    Name of the created polyscope object.
+     * @return  Pointer to the created mesh returned by registerSurfaceMesh.
+     */
+    polyscope::SurfaceMesh* createMesh(const std::string& name);
 };
 
 #endif//__RAYCAST_SCENE__
