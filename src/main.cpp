@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     polyscope::init();
 
     // Build the Mesh
-    polyscope::SurfaceMesh* chunkSurface = scene.createMesh("Chunk");
+    scene.createBlocks("XYZ");
 
     // Finish setting up the initial Polyscope scene 
     init();

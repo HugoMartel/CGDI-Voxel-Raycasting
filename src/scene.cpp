@@ -31,6 +31,7 @@ SandboxScene::SandboxScene(
     //============================ 
     // ONLY KEEP section Y=3
     //============================ 
+    // TODO: add a programm argument to select the section to use
     int section_index = 0;
     while (sections[section_index]["Y"] != 3)
         ++section_index;
@@ -46,10 +47,33 @@ SandboxScene::SandboxScene(
     std::vector<std::vector<AABB>> palette_shapes(palette.size(), std::vector<AABB>());
     for (unsigned int i=0; i<palette.size(); ++i) {
         std::cout << palette[i] << '\n';//! DEBUG
+        // Find the block in the block shapes JSON corresponding to
+        // the current block in the palette
         const Json::Value block = blocksData[palette[i]["Name"].asString()];
-        const std::string block_shape_str = block["states"][0]["shape"].asString();
-        // TODO: change default shape to correct shape
+        std::string block_shape_str = "";
+
+        // If the block has properties, look for the correct shape in the block shapes JSON
+        if (palette[i].isMember("Properties")) {
+            const Json::Value block_properties = palette[i]["Properties"];
+        // std::cout << palette[i]["Properties"] << '\n';//! DEBUG
+        // std::cout << "STATES AMOUNT: " << block["states"].size() << '\n';//! DEBUG
+            for (unsigned int state_i=0; state_i<block["states"].size(); ++state_i) {
+                // std::cout << "STATE: " << state_i << '\n';//! DEBUG
+                // std::cout << block["states"][state_i]["properties"] << '\n';//! DEBUG
+                if (block["states"][state_i]["properties"] == block_properties) {
+                    block_shape_str = block["states"][state_i]["shape"].asString();
+                    break;
+                }
+            }
+        } else {
+            // Otherwise, simply select the first shape since it is the only choice
+            block_shape_str = block["states"][0]["shape"].asString();
+        }
+
+        assert(block_shape_str != "");
+        // Convert the AABB string to a vector of AABB and fill in the palette shapes
         palette_shapes[i] = str_to_aabbvector(block_shape_str);
+        //! DEBUG
         for (size_t j=0; j<palette_shapes[i].size(); ++j) {
             std::cout << palette_shapes[i][j] << '\n';
         }
@@ -88,7 +112,7 @@ SandboxScene::SandboxScene(
     }
 }
 
-polyscope::SurfaceMesh* SandboxScene::createMesh(const std::string& name) {
+void SandboxScene::createBlocks(const std::string& name) {
     // Cube faces
     std::vector<Face> box_faces({
         {0,3,2,1},// Front
@@ -102,12 +126,22 @@ polyscope::SurfaceMesh* SandboxScene::createMesh(const std::string& name) {
     unsigned int cube_counter = 0;
 
     // Test scene
-    for (int y=5; y<16; ++y) {
-        for (int z=7; z<13; ++z) {
-            for (int x=7; x<13; ++x) {
-                std::cout << '(' << x << ',' << y << ',' << z << ") "
-                          << voxels[y][z][x] << '\n';
+    for (int y=0; y<16; ++y) {
+        for (int z=0; z<16; ++z) {
+            for (int x=0; x<16; ++x) {
                 for (AABB box : voxels[y][z][x]) {
+                    /* 1x1x1 cube: {
+                     {0.,0.,0.},
+                     {1.,0.,0.},
+                     {1.,1.,0.},
+                     {0.,1.,0.},
+                     {0.,0.,1.},
+                     {1.,0.,1.},
+                     {1.,1.,1.},
+                     {0.,1.,1.}
+                    }
+                    We simply map the AABB's min on 0s and max on 1s
+                    */
                     std::vector<Vertex> box_vertices({
                         {box.minX + x, box.minY + y, box.minZ + z},
                         {box.maxX + x, box.minY + y, box.minZ + z},
@@ -119,16 +153,13 @@ polyscope::SurfaceMesh* SandboxScene::createMesh(const std::string& name) {
                         {box.minX + x, box.maxY + y, box.maxZ + z},
                     });
                     polyscope::registerSurfaceMesh(
-                        name+std::to_string(cube_counter++),
+                        name+' '+std::to_string(x)+' '+std::to_string(y)+' '+std::to_string(z)
+                            +", ID: "+std::to_string(cube_counter++),
                         box_vertices,
                         box_faces);
                 }
             }
         }
     }
-
-    // Register the mesh with polyscope
-    // return polyscope::registerSurfaceMesh(name, test_cube_vertices, test_cube_faces);
-    return nullptr;
 }
 

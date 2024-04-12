@@ -71,11 +71,10 @@ public:
         voxels[position.y][position.z][position.x] = voxel;
     }
     /**
-     * Constructs a Polyscope surface mesh from the voxel scene.
+     * Constructs voxels (vertices and faces) and adds them to the polyscope scene.
      * @param   name    Name of the created polyscope object.
-     * @return  Pointer to the created mesh returned by registerSurfaceMesh.
      */
-    polyscope::SurfaceMesh* createMesh(const std::string& name);
+    void createBlocks(const std::string& name);
 };
 
 #endif//__RAYCAST_SCENE__

@@ -110,7 +110,16 @@ with open(in_path, 'rb') as io:
             if 'Properties' in block:
                 properties = {}
                 for name, prop in block['Properties'].items():
-                    properties[name] = prop.value
+                    match prop.value:
+                        case 'true':
+                            properties[name] = True
+                        case 'false':
+                            properties[name] = False
+                        case _:
+                            if prop.value.isdigit():
+                                properties[name] = int(prop.value)
+                            else:
+                                properties[name] = prop.value
                 palette_list[-1]['Properties'] = properties
 
         sections[-1]['palette'] = palette_list

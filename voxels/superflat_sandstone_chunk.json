@@ -4177,7 +4177,7 @@
                     "Properties": {
                         "part": "foot",
                         "facing": "east",
-                        "occupied": "true"
+                        "occupied": true
                     }
                 },
                 {
@@ -4185,7 +4185,7 @@
                     "Properties": {
                         "part": "head",
                         "facing": "east",
-                        "occupied": "true"
+                        "occupied": true
                     }
                 },
                 {
@@ -4193,7 +4193,7 @@
                     "Properties": {
                         "part": "foot",
                         "facing": "south",
-                        "occupied": "false"
+                        "occupied": false
                     }
                 },
                 {
@@ -4201,7 +4201,7 @@
                     "Properties": {
                         "part": "head",
                         "facing": "south",
-                        "occupied": "false"
+                        "occupied": false
                     }
                 }
             ],
