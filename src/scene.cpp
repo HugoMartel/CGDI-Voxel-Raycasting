@@ -11,13 +11,12 @@
 #include "geometry.hpp"
 
 
-SandboxScene::SandboxScene(
-    const std::string& chunkFileName,
-    const std::string& blocksFileName
-) : voxels(16, std::vector<std::vector<Voxel>>(16, std::vector<Voxel>(16, Voxel()))) {
+SandboxScene::SandboxScene(const std::string& chunkPath, const std::string& blocksPath,
+                           const int chosen_section)
+: voxels(16, std::vector<std::vector<Voxel>>(16, std::vector<Voxel>(16, Voxel()))) {
     // Checks if files exists
-    std::ifstream chunkFile(chunkFileName, std::ios_base::in);
-    std::ifstream blocksFile(blocksFileName, std::ios_base::in);
+    std::ifstream chunkFile(chunkPath, std::ios_base::in);
+    std::ifstream blocksFile(blocksPath, std::ios_base::in);
 
     // Loads JSON files
     Json::Value chunkData;
@@ -33,7 +32,7 @@ SandboxScene::SandboxScene(
     //============================ 
     // TODO: add a programm argument to select the section to use
     int section_index = 0;
-    while (sections[section_index]["Y"] != 3)
+    while (sections[section_index]["Y"] != chosen_section)
         ++section_index;
 
     // Get the block palette for the current Y

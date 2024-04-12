@@ -10,6 +10,9 @@
 
 #include "voxel.hpp"
 
+/**
+ * 3D Scene storage class to use.
+ */
 template<typename T>
 using Lattice3D = std::vector<std::vector<std::vector<T>>>;
 
@@ -39,10 +42,12 @@ public:
     }
     /**
      * Sandbox scene constructor that takes a chunk JSON file as input and contructs a scene from it.
-     * @param   chunkFileName   File location of the chunk JSON file.
-     * @param   blocksFileName  File location of all the blocks AABB and properties.
+     * @param   chunkPath   File location of the chunk JSON file.
+     * @param   blocksPath  File location of all the blocks AABB and properties.
+     * @param   section     Section number to load.
      */
-    SandboxScene(const std::string& chunkFileName, const std::string& blocksFileName);
+    SandboxScene(const std::string& chunkPath, const std::string& blocksPath,
+                 const int chosen_section);
 
     // Methods
     /**

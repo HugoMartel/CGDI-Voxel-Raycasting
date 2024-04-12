@@ -2,16 +2,14 @@
  * @file main.cpp
  */
 #include <iostream>
-#include <filesystem>
-#include <cassert>
 
 #include <polyscope/polyscope.h>
 #include <polyscope/surface_mesh.h>
 
+#include "argparser.hpp"
 #include "scene.hpp"
 
 // == DEFINES
-#define BLOCKS_FILE_LOCATION "../voxels/1_20_1_blocks.json"
 
 // == FUNCTIONS
 /**
@@ -36,26 +34,21 @@ void uiCallback() {
 }
 
 // == MAIN
-int main(int argc, char* argv[]) {
-    assert(std::filesystem::exists(BLOCKS_FILE_LOCATION));
-
-    // Load chunk file
-    if (argc == 1) {
-        std::cout << "Missing JSON chunk file to load\n";
-        exit(0);
-    } else if (!std::filesystem::exists(argv[1])) {
-        std::cerr << "No file located at " << argv[1] << '\n';
-        exit(-1);
-    }
+int main(const int argc, const char** argv) {
+    ArgParser args(argc, argv);
 
     // Load the JSON file into a scene
+    if (args.verbose)
+        std::cout << "[+] Parsing the chunk file into a scene\n";
     //SandboxScene scene(10,10,10);
-    SandboxScene scene(argv[1], BLOCKS_FILE_LOCATION);
+    SandboxScene scene(args.chunkPath, args.blocksPath, args.section);
 
     // Initialize polyscope
     polyscope::init();
 
     // Build the Mesh
+    if (args.verbose)
+        std::cout << "[+] Creating the blocks into Polyscope's scene\n";
     scene.createBlocks("XYZ");
 
     // Finish setting up the initial Polyscope scene 
@@ -66,6 +59,8 @@ int main(int argc, char* argv[]) {
     polyscope::state::userCallback = uiCallback;
 
     // Give control to the polyscope gui
+    if (args.verbose)
+        std::cout << "[+] Starting the Polyscope GUI\n";
     polyscope::show();
 
     return EXIT_SUCCESS;
