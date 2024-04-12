@@ -96,11 +96,27 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="textblock"><p><a class="anchor" id="md_README"></a> Project for the CGDI course at ENS de Lyon.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Building</h1>
-<div class="fragment"><div class="line">mkdir build</div>
+<p>Dependencies to install:</p><ul>
+<li>jsoncpp</li>
+<li>cmake</li>
+</ul>
+<p>Building the project: </p><div class="fragment"><div class="line">mkdir build</div>
 <div class="line">cd build</div>
 <div class="line">cmake .. -DCMAKE_BUILD_TYPE=Release</div>
 <div class="line">make -j4</div>
-</div><!-- fragment --> </div></div><!-- PageDoc -->
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md2"></a>
+Usage</h1>
+<p>Example: </p><div class="fragment"><div class="line">./raycast -c ../voxels/superflat_sandstone_chunk.json</div>
+</div><!-- fragment --><p>Program arguments:</p>
+<p><b>required</b></p><ul>
+<li><code>--chunk &lt;file path&gt;</code>, <code>-c &lt;file path&gt;</code>: JSON file containing a chunk content generated from a NBT file (can be generated using the script in this repository).</li>
+</ul>
+<p><b>optional</b></p><ul>
+<li><code>--blocks &lt;file path&gt;</code>, <code>-b &lt;file path&gt;</code>: JSON file containing all the <a class="el" href="d9/d4d/structAABB.html">AABB</a> for all blocks a default one is available in the <code>voxels/</code> folder.</li>
+<li><code>--section &lt;section number&gt;</code>, <code>-s &lt;section number&gt;</code>: Section of the chunk to extract, defaults to 0 if not provided.</li>
+<li><code>--verbose</code>, <code>-v</code>: Enables verbose output. </li>
+</ul>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

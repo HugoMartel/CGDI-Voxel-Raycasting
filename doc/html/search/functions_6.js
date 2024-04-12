@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]]
+  ['init_0',['init',['../df/d0a/main_8cpp.html#a02fd73d861ef2e4aabb38c0c9ff82947',1,'main.cpp']]]
 ];

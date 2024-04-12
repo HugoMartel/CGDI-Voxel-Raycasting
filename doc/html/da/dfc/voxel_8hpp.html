@@ -91,11 +91,13 @@ $(document).ready(function(){initNavTree('da/dfc/voxel_8hpp.html','../../'); ini
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">voxel.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;array&gt;</code><br />
 </div>
 <p><a href="../../da/dfc/voxel_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -108,7 +110,91 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d44/classVoxel.html">Voxel</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad0fb1e6bbc9f3ea08eac68df6e59c941"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dfc/voxel_8hpp.html#ad0fb1e6bbc9f3ea08eac68df6e59c941">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> &amp;box)</td></tr>
+<tr class="separator:ad0fb1e6bbc9f3ea08eac68df6e59c941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a412cad24abd951c435a87b51fb2048a5"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dfc/voxel_8hpp.html#a412cad24abd951c435a87b51fb2048a5">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d6/d44/classVoxel.html">Voxel</a> &amp;v)</td></tr>
+<tr class="separator:a412cad24abd951c435a87b51fb2048a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ad0fb1e6bbc9f3ea08eac68df6e59c941" name="ad0fb1e6bbc9f3ea08eac68df6e59c941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0fb1e6bbc9f3ea08eac68df6e59c941">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> &amp;&#160;</td>
+          <td class="paramname"><em>box</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Stream writing operator override for a bouding box object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Stream object to write into. </td></tr>
+    <tr><td class="paramname">box</td><td><a class="el" href="../../d9/d4d/structAABB.html">AABB</a> to display. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Stream where the box has been written. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../db/df7/voxel_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../db/df7/voxel_8cpp_source.html">voxel.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a412cad24abd951c435a87b51fb2048a5" name="a412cad24abd951c435a87b51fb2048a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a412cad24abd951c435a87b51fb2048a5">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d6/d44/classVoxel.html">Voxel</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Stream writing operator override for a voxel object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Stream object to write into. </td></tr>
+    <tr><td class="paramname">v</td><td><a class="el" href="../../d6/d44/classVoxel.html">Voxel</a> to display. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Stream where the box has been written. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../db/df7/voxel_8cpp_source.html#l00157">157</a> of file <a class="el" href="../../db/df7/voxel_8cpp_source.html">voxel.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

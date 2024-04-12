@@ -48,3 +48,14 @@ while (/* condition */) {
     // Body
 }
 ```
+```c++
+switch (/* variable */) {
+case A:
+    // Things
+    break;
+default:
+    // Things
+    break;
+}
+```
+
