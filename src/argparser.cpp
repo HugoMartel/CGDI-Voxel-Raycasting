@@ -9,7 +9,7 @@
 #include <cstring>
 
 ArgParser::ArgParser(const int argc, const char** argv)
-: chunkPath(""), blocksPath(BLOCKS_FILE_PATH), section(0), verbose(false) {
+: chunkPath(""), shapesPath(BLOCK_SHAPES_FILE_PATH), section(0), verbose(false) {
     // Iterate on the arguments
     for (int i=1; i<argc; ++i) {
         if (!std::strcmp(argv[i], "--verbose")) {
@@ -26,21 +26,21 @@ ArgParser::ArgParser(const int argc, const char** argv)
             }
             chunkPath = argv[i+1];
             ++i;
-        } else if (!std::strcmp(argv[i], "--blocks") || !std::strcmp(argv[i], "-b")) {
-            // --blocks
+        } else if (!std::strcmp(argv[i], "--shapes") || !std::strcmp(argv[i], "-b")) {
+            // --blockshapes
             if (i+1 == argc) {
-                std::cout << "Missing blocks file path after the --blocks,-b argument\n";
+                std::cout << "Missing block shapes file path after the --blockshapes,-b argument\n";
                 exit(-1);
             } else if (argv[i+1][0] == '-') {
-                std::cout << "Missing blocks file path after the --blocks,-b argument\n";
+                std::cout << "Missing block shapes file path after the --blockshapes,-b argument\n";
                 exit(-1);
             }
-            blocksPath = argv[i+1];
+            shapesPath = argv[i+1];
             ++i;
         } else if (!std::strcmp(argv[i], "--section") || !std::strcmp(argv[i], "-s")) {
             // --section
             if (i+1 == argc) {
-                std::cout << "Missing blocks file path after the --section,-s argument\n";
+                std::cout << "Missing block shapes file path after the --section,-s argument\n";
                 exit(-1);
             }
             try {
@@ -57,7 +57,7 @@ ArgParser::ArgParser(const int argc, const char** argv)
     }
 
     assert(std::filesystem::exists(chunkPath));
-    assert(std::filesystem::exists(blocksPath));
+    assert(std::filesystem::exists(shapesPath));
     // assert(section >= -4 && section <= 15);
     // The Wiki is unclear about these values, maybe they are false
 }

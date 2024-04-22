@@ -79,7 +79,7 @@ with open(in_path, 'rb') as io:
     for be in nbt['block_entities']:
         tmp_be = {}
         tmp_be['id'] = be['id'].value
-        tmp_be['keepPacked'] = be['keepPacked'].value
+        # tmp_be['keepPacked'] = be['keepPacked'].value
         tmp_be['x'] = be['x'].value
         tmp_be['y'] = be['y'].value
         tmp_be['z'] = be['z'].value
@@ -140,7 +140,7 @@ with open(in_path, 'rb') as io:
 
             # Convert the 64 integer array into an array of bit arrays
             data_bits = [
-                bin(integer)[2:].zfill(64)
+                bin(integer).split('b')[1].zfill(64)
                 for integer in block_states['data'].value
             ]
             # Compute our ids from slices of idlen from the bit arrays

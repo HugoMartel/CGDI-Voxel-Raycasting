@@ -34,6 +34,12 @@ find_package(jsoncpp REQUIRED)
 add_executable(raycast)
 set_target_properties(raycast PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-pragmas -Wno-missing-field-initializers")
 target_include_directories(raycast PUBLIC include)
-target_sources(raycast PUBLIC src/main.cpp src/argparser.cpp src/voxel.cpp src/scene.cpp src/util.cpp)
+target_sources(raycast PUBLIC src/main.cpp
+                              src/argparser.cpp
+                              src/geometry.cpp
+                              src/voxel.cpp
+                              src/scene.cpp
+                              src/ray_algorithm.cpp
+                              src/util.cpp)
 target_link_libraries(raycast PUBLIC polyscope jsoncpp_lib)
 

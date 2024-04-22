@@ -4,6 +4,7 @@
 #include "scene.hpp"
 
 #include <fstream>
+#include <cassert>
 
 #include <json/json.h>
 
@@ -11,26 +12,27 @@
 #include "geometry.hpp"
 
 
-SandboxScene::SandboxScene(const std::string& chunkPath, const std::string& blocksPath,
+SandboxScene::SandboxScene(const std::string& chunkPath, const std::string& shapesPath,
                            const int chosen_section)
-: voxels(16, std::vector<std::vector<Voxel>>(16, std::vector<Voxel>(16, Voxel()))) {
+: voxels(CHUNK_SIDE_SIZE, std::vector<std::vector<Voxel>>(
+            CHUNK_SIDE_SIZE, std::vector<Voxel>(
+                CHUNK_SIDE_SIZE, Voxel()))) {
     // Checks if files exists
     std::ifstream chunkFile(chunkPath, std::ios_base::in);
-    std::ifstream blocksFile(blocksPath, std::ios_base::in);
+    std::ifstream shapesFile(shapesPath, std::ios_base::in);
 
     // Loads JSON files
     Json::Value chunkData;
-    Json::Value blocksData;
+    Json::Value shapesData;
     chunkFile >> chunkData;
-    blocksFile >> blocksData;
+    shapesFile >> shapesData;
 
     // Get the JSON Array of Y sections
     const Json::Value sections = chunkData["sections"];
 
-    //============================ 
+    //============================
     // ONLY KEEP section Y=3
-    //============================ 
-    // TODO: add a programm argument to select the section to use
+    //============================
     int section_index = 0;
     while (sections[section_index]["Y"] != chosen_section)
         ++section_index;
@@ -48,7 +50,7 @@ SandboxScene::SandboxScene(const std::string& chunkPath, const std::string& bloc
         std::cout << palette[i] << '\n';//! DEBUG
         // Find the block in the block shapes JSON corresponding to
         // the current block in the palette
-        const Json::Value block = blocksData[palette[i]["Name"].asString()];
+        const Json::Value block = shapesData[palette[i]["Name"].asString()];
         std::string block_shape_str = "";
 
         // If the block has properties, look for the correct shape in the block shapes JSON
@@ -110,55 +112,3 @@ SandboxScene::SandboxScene(const std::string& chunkPath, const std::string& bloc
         }
     }
 }
-
-void SandboxScene::createBlocks(const std::string& name) {
-    // Cube faces
-    std::vector<Face> box_faces({
-        {0,3,2,1},// Front
-        {0,1,5,4},// Bottom
-        {4,5,6,7},// Back
-        {2,3,7,6},// Top
-        {0,4,7,3},// Right
-        {1,2,6,5} // Left
-    });
-
-    unsigned int cube_counter = 0;
-
-    // Test scene
-    for (int y=0; y<16; ++y) {
-        for (int z=0; z<16; ++z) {
-            for (int x=0; x<16; ++x) {
-                for (AABB box : voxels[y][z][x]) {
-                    /* 1x1x1 cube: {
-                     {0.,0.,0.},
-                     {1.,0.,0.},
-                     {1.,1.,0.},
-                     {0.,1.,0.},
-                     {0.,0.,1.},
-                     {1.,0.,1.},
-                     {1.,1.,1.},
-                     {0.,1.,1.}
-                    }
-                    We simply map the AABB's min on 0s and max on 1s
-                    */
-                    std::vector<Vertex> box_vertices({
-                        {box.minX + x, box.minY + y, box.minZ + z},
-                        {box.maxX + x, box.minY + y, box.minZ + z},
-                        {box.maxX + x, box.maxY + y, box.minZ + z},
-                        {box.minX + x, box.maxY + y, box.minZ + z},
-                        {box.minX + x, box.minY + y, box.maxZ + z},
-                        {box.maxX + x, box.minY + y, box.maxZ + z},
-                        {box.maxX + x, box.maxY + y, box.maxZ + z},
-                        {box.minX + x, box.maxY + y, box.maxZ + z},
-                    });
-                    polyscope::registerSurfaceMesh(
-                        name+' '+std::to_string(x)+' '+std::to_string(y)+' '+std::to_string(z)
-                            +", ID: "+std::to_string(cube_counter++),
-                        box_vertices,
-                        box_faces);
-                }
-            }
-        }
-    }
-}
-

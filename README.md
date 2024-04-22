@@ -29,7 +29,7 @@ Program arguments:
 * `--chunk <file path>`, `-c <file path>`: JSON file containing a chunk content generated from a NBT file (can be generated using the script in this repository).
 
 **optional**
-* `--blocks <file path>`, `-b <file path>`: JSON file containing all the AABB for all blocks a default one is available in the `voxels/` folder.
+* `--blockshapes <file path>`, `-b <file path>`: JSON file containing all the AABB for all blocks a default one is available in the `voxels/` folder.
 
 * `--section <section number>`, `-s <section number>`: Section of the chunk to extract, defaults to 0 if not provided.
 

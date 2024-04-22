@@ -152,6 +152,13 @@ public:
     inline void addAABB(const AABB& box) {
         contents.emplace_back(box);
     }
+    /**
+     * Tests if the contents of the voxel are empty (no AABB).
+     * @return true or false.
+     */
+    inline bool isEmpty() const {
+        return contents.empty();
+    }
 
     // Friend functions
     friend std::ostream& operator<<(std::ostream& os, const Voxel& v);

@@ -6,7 +6,7 @@
 
 #include <string>
 
-#define BLOCKS_FILE_PATH "../voxels/1_20_1_blocks.json"
+#define BLOCK_SHAPES_FILE_PATH "../voxels/1_20_1_block_shapes.json"
 
 /**
  * Class used to parse program arguments and store them.
@@ -23,7 +23,7 @@ public:
      * SON file containing all the AABB for all blocks
      * @note A default file is available in the `voxels/` folder.
      */
-    std::string blocksPath;
+    std::string shapesPath;
     /**
      * Section of the chunk to extract.
      * @note Defaults to 0 if not provided.

@@ -30,7 +30,7 @@ chmod 777 $1 # Necessary otherwise, mca2nbt can't access the archive
 mkdir -p $NBT_FOLDER_TMP # Create the  output folder with the correct permissions
 chmod 777 $NBT_FOLDER_TMP
 ./MCA2NBT/mca2nbt $1 # Convert the .mca region archive to .nbt chunk files
-mv -fu $NBT_FOLDER_TMP $NBT_FOLDER # Move the nbt files to the correct location
+mv -fu $NBT_FOLDER_TMP/* $NBT_FOLDER/ # Move the nbt files to the correct location
 chmod 755 $NBT_FOLDER # Set the correct permissions for the final .nbt files
 
 # NBT Chunks to Blocks JSON

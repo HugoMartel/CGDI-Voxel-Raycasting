@@ -6,9 +6,9 @@
 
 #include <string>
 
-#include <polyscope/surface_mesh.h>
-
 #include "voxel.hpp"
+
+#define CHUNK_SIDE_SIZE 16
 
 /**
  * 3D Scene storage class to use.
@@ -23,7 +23,7 @@ class SandboxScene {
 private:
     // Attributes
     /**
-     * 3D voxel scene containing Voxel objects identified by their coordinate.
+     * 3D voxel scene containing Voxel objects identified by their coordinates.
      */
     Lattice3D<Voxel> voxels;
 
@@ -31,9 +31,9 @@ public:
     // Constructors
     /**
      * Sandbox scene constructor.
-     * @param   width   Width of the voxels scene.
-     * @param   height  Height of the voxels scene.
-     * @param   depth   Depth of the voxels scene.
+     * @param   width   Width of the scene.
+     * @param   height  Height of the scene.
+     * @param   depth   Depth of the scene.
      */
     SandboxScene(const int width, const int height, const int depth) {
         voxels = Lattice3D<Voxel>(width, std::vector<std::vector<Voxel>>(
@@ -42,9 +42,9 @@ public:
     }
     /**
      * Sandbox scene constructor that takes a chunk JSON file as input and contructs a scene from it.
-     * @param   chunkPath   File location of the chunk JSON file.
-     * @param   blocksPath  File location of all the blocks AABB and properties.
-     * @param   section     Section number to load.
+     * @param   chunkPath       File location of the chunk JSON file.
+     * @param   blocksPath      File location of all the blocks AABB and properties.
+     * @param   chosen_section  Section number to load.
      */
     SandboxScene(const std::string& chunkPath, const std::string& blocksPath,
                  const int chosen_section);
@@ -55,7 +55,7 @@ public:
      * @param   position    Position of the requested voxel.
      * @return  Voxel object found at that given position.
      */
-    Voxel getVoxel(const VoxelPosition& position) const {
+    inline Voxel getVoxel(const VoxelPosition& position) const {
         return voxels[position.y][position.z][position.x];
     }
     /**
@@ -64,7 +64,7 @@ public:
      * @param   position    Position of the requested voxel.
      * @return  Reference to the Voxel object found at that given position.
      */
-    Voxel& getVoxel(const VoxelPosition& position) {
+    inline Voxel& getVoxel(const VoxelPosition& position) {
         return voxels[position.y][position.z][position.x];
     }
     /**
@@ -75,11 +75,6 @@ public:
     void setVoxel(const VoxelPosition& position, const Voxel& voxel) {
         voxels[position.y][position.z][position.x] = voxel;
     }
-    /**
-     * Constructs voxels (vertices and faces) and adds them to the polyscope scene.
-     * @param   name    Name of the created polyscope object.
-     */
-    void createBlocks(const std::string& name);
 };
 
 #endif//__RAYCAST_SCENE__
