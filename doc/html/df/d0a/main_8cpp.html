@@ -91,15 +91,19 @@ $(document).ready(function(){initNavTree('df/d0a/main_8cpp.html','../../'); init
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;polyscope/polyscope.h&gt;</code><br />
-<code>#include &lt;polyscope/surface_mesh.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d1/d4f/argparser_8hpp_source.html">argparser.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d9b/scene_8hpp_source.html">scene.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d1d/ray_8hpp_source.html">ray.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/db5/ray__algorithm_8hpp_source.html">ray_algorithm.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d3f/util_8hpp_source.html">util.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../df/d0a/main_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -113,6 +117,19 @@ Functions</h2></td></tr>
 <tr class="separator:ad872b764da3c992f1b896f5907c53f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac762d48b889bd832ec0d42abcbc50624"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#ac762d48b889bd832ec0d42abcbc50624">main</a> (const int argc, const char **argv)</td></tr>
 <tr class="separator:ac762d48b889bd832ec0d42abcbc50624"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a20f623a703609119ec6cf06eb1f42aef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a20f623a703609119ec6cf06eb1f42aef">raystep_pressed</a> = false</td></tr>
+<tr class="separator:a20f623a703609119ec6cf06eb1f42aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d3f400678b9102092324971a141d4be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a6d3f400678b9102092324971a141d4be">rayreset_pressed</a> = false</td></tr>
+<tr class="separator:a6d3f400678b9102092324971a141d4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68367ecdbf4582dab3e8d40457185aed"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="../../dc/d91/classSandboxScene.html">SandboxScene</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a68367ecdbf4582dab3e8d40457185aed">scene</a></td></tr>
+<tr class="separator:a68367ecdbf4582dab3e8d40457185aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ed342ad7477816e330bcfc7a4476ced"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="../../d9/dce/classRay.html">Ray</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a1ed342ad7477816e330bcfc7a4476ced">ray</a></td></tr>
+<tr class="separator:a1ed342ad7477816e330bcfc7a4476ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49e6af61485cbe14425620a63cb149c4"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="../../d4/d8e/classRayAlgorithm.html">RayAlgorithm</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a49e6af61485cbe14425620a63cb149c4">ray_algorithm</a></td></tr>
+<tr class="separator:a49e6af61485cbe14425620a63cb149c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a56c5cf8a568cff737ff95520cbe6b405" name="a56c5cf8a568cff737ff95520cbe6b405"></a>
@@ -131,7 +148,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Draw function to call when changing fun. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00035">35</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -151,7 +168,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Function called at the begining of the main code to initialize needed things. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00018">18</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00027">27</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -181,7 +198,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00064">64</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -201,7 +218,88 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Callback for polyscope's ImGui UI </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00032">32</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a1ed342ad7477816e330bcfc7a4476ced" name="a1ed342ad7477816e330bcfc7a4476ced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ed342ad7477816e330bcfc7a4476ced">&#9670;&#160;</a></span>ray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="../../d9/dce/classRay.html">Ray</a>&gt; ray</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00020">20</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a49e6af61485cbe14425620a63cb149c4" name="a49e6af61485cbe14425620a63cb149c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49e6af61485cbe14425620a63cb149c4">&#9670;&#160;</a></span>ray_algorithm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="../../d4/d8e/classRayAlgorithm.html">RayAlgorithm</a>&gt; ray_algorithm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6d3f400678b9102092324971a141d4be" name="a6d3f400678b9102092324971a141d4be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d3f400678b9102092324971a141d4be">&#9670;&#160;</a></span>rayreset_pressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rayreset_pressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00017">17</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a20f623a703609119ec6cf06eb1f42aef" name="a20f623a703609119ec6cf06eb1f42aef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20f623a703609119ec6cf06eb1f42aef">&#9670;&#160;</a></span>raystep_pressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool raystep_pressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00016">16</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a68367ecdbf4582dab3e8d40457185aed" name="a68367ecdbf4582dab3e8d40457185aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68367ecdbf4582dab3e8d40457185aed">&#9670;&#160;</a></span>scene</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="../../dc/d91/classSandboxScene.html">SandboxScene</a>&gt; scene</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/d0a/main_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../df/d0a/main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>

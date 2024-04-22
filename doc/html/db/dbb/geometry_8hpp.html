@@ -100,12 +100,13 @@ $(document).ready(function(){initNavTree('db/dbb/geometry_8hpp.html','../../'); 
 <div class="textblock"><code>#include &lt;array&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 </div>
 <p><a href="../../db/dbb/geometry_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4f/classPoint.html">Point</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d43/structPoint.html">Point</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -119,8 +120,8 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a607a42609fe5f2d35614638e8be245da"><td class="memItemLeft" align="right" valign="top">Vertex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dbb/geometry_8hpp.html#a607a42609fe5f2d35614638e8be245da">vertex_transform</a> (const Vertex &amp;v, const Matrix4d &amp;m)</td></tr>
-<tr class="separator:a607a42609fe5f2d35614638e8be245da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab322db2b5457c54c9b959c6336792d2d"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dbb/geometry_8hpp.html#ab322db2b5457c54c9b959c6336792d2d">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;p)</td></tr>
+<tr class="separator:ab322db2b5457c54c9b959c6336792d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a743f01b9c27efcddee527a72e83ec216" name="a743f01b9c27efcddee527a72e83ec216"></a>
@@ -135,7 +136,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/dbb/geometry_8hpp_source.html#l00012">12</a> of file <a class="el" href="../../db/dbb/geometry_8hpp_source.html">geometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/dbb/geometry_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../db/dbb/geometry_8hpp_source.html">geometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -151,7 +152,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/dbb/geometry_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../db/dbb/geometry_8hpp_source.html">geometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/dbb/geometry_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../db/dbb/geometry_8hpp_source.html">geometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -167,28 +168,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/dbb/geometry_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../db/dbb/geometry_8hpp_source.html">geometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/dbb/geometry_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../db/dbb/geometry_8hpp_source.html">geometry.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a607a42609fe5f2d35614638e8be245da" name="a607a42609fe5f2d35614638e8be245da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a607a42609fe5f2d35614638e8be245da">&#9670;&#160;</a></span>vertex_transform()</h2>
+<a id="ab322db2b5457c54c9b959c6336792d2d" name="ab322db2b5457c54c9b959c6336792d2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab322db2b5457c54c9b959c6336792d2d">&#9670;&#160;</a></span>operator&lt;&lt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Vertex vertex_transform </td>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
           <td>(</td>
-          <td class="paramtype">const Vertex &amp;&#160;</td>
-          <td class="paramname"><em>v</em>, </td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Matrix4d &amp;&#160;</td>
-          <td class="paramname"><em>m</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -197,8 +198,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Stream writing operator for a <a class="el" href="../../d8/d43/structPoint.html">Point</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/dbb/geometry_8hpp_source.html#l00195">195</a> of file <a class="el" href="../../db/dbb/geometry_8hpp_source.html">geometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d59/geometry_8cpp_source.html#l00222">222</a> of file <a class="el" href="../../d4/d59/geometry_8cpp_source.html">geometry.cpp</a>.</p>
 
 </div>
 </div>

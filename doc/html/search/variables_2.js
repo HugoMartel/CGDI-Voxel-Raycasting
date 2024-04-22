@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['maxx_0',['maxX',['../d9/d4d/structAABB.html#a788fce5d48b89f6c5f3fc000cae6774c',1,'AABB']]],
-  ['minx_1',['minX',['../d9/d4d/structAABB.html#acfd8276ed35b30045e50ceaf6978bb1e',1,'AABB']]]
+  ['section_0',['section',['../d8/da9/structArgParser.html#a2a78d7d800c0c2788a66d6937c46e63e',1,'ArgParser']]],
+  ['shapespath_1',['shapesPath',['../d8/da9/structArgParser.html#a1717a5c719f848ae8b80889a7304fe1c',1,'ArgParser']]]
 ];

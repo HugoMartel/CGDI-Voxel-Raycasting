@@ -96,6 +96,8 @@ $(document).ready(function(){initNavTree('df/d2d/util_8cpp.html','../../'); init
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d0/d3f/util_8hpp_source.html">util.hpp</a>&quot;</code><br />
+<code>#include &lt;polyscope/surface_mesh.h&gt;</code><br />
+<code>#include &lt;polyscope/curve_network.h&gt;</code><br />
 </div>
 <p><a href="../../df/d2d/util_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -103,8 +105,88 @@ $(document).ready(function(){initNavTree('df/d2d/util_8cpp.html','../../'); init
 Functions</h2></td></tr>
 <tr class="memitem:afd67632727a53af4f428d3f82b6e86e3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2d/util_8cpp.html#afd67632727a53af4f428d3f82b6e86e3">str_to_aabbvector</a> (const std::string &amp;s)</td></tr>
 <tr class="separator:afd67632727a53af4f428d3f82b6e86e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a673750eef1dffee56c44184647b059d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2d/util_8cpp.html#a673750eef1dffee56c44184647b059d4">createSceneMeshes</a> (const <a class="el" href="../../dc/d91/classSandboxScene.html">SandboxScene</a> &amp;scene, const std::string &amp;name)</td></tr>
+<tr class="separator:a673750eef1dffee56c44184647b059d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8346092e9bea363964b2cd5bd5d9ce5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2d/util_8cpp.html#ab8346092e9bea363964b2cd5bd5d9ce5">createRayLine</a> (const <a class="el" href="../../d9/dce/classRay.html">Ray</a> &amp;ray, const std::string &amp;name)</td></tr>
+<tr class="separator:ab8346092e9bea363964b2cd5bd5d9ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2df76555abc9c4b06166c75e22424ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2d/util_8cpp.html#ad2df76555abc9c4b06166c75e22424ad">updateRayLine</a> (const <a class="el" href="../../d9/dce/classRay.html">Ray</a> &amp;ray, const std::string &amp;name)</td></tr>
+<tr class="separator:ad2df76555abc9c4b06166c75e22424ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ab8346092e9bea363964b2cd5bd5d9ce5" name="ab8346092e9bea363964b2cd5bd5d9ce5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8346092e9bea363964b2cd5bd5d9ce5">&#9670;&#160;</a></span>createRayLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void createRayLine </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dce/classRay.html">Ray</a> &amp;&#160;</td>
+          <td class="paramname"><em>ray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructs a curve network to display a given ray in polyscope. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ray</td><td><a class="el" href="../../d9/dce/classRay.html">Ray</a> object to add. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of the polyscope object that will be created. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d2d/util_8cpp_source.html#l00118">118</a> of file <a class="el" href="../../df/d2d/util_8cpp_source.html">util.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a673750eef1dffee56c44184647b059d4" name="a673750eef1dffee56c44184647b059d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a673750eef1dffee56c44184647b059d4">&#9670;&#160;</a></span>createSceneMeshes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void createSceneMeshes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../dc/d91/classSandboxScene.html">SandboxScene</a> &amp;&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>prefix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructs rectangular cuboids (with vertices and faces vectors) and adds them to the polyscope scene. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>Sandbox scene object containing all the voxels' AABBs. </td></tr>
+    <tr><td class="paramname">prefix</td><td>Prefix name of the created polyscope object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d2d/util_8cpp_source.html#l00067">67</a> of file <a class="el" href="../../df/d2d/util_8cpp_source.html">util.cpp</a>.</p>
+
+</div>
+</div>
 <a id="afd67632727a53af4f428d3f82b6e86e3" name="afd67632727a53af4f428d3f82b6e86e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd67632727a53af4f428d3f82b6e86e3">&#9670;&#160;</a></span>str_to_aabbvector()</h2>
 
@@ -128,7 +210,44 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::vector&lt;AABB&gt; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d2d/util_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../df/d2d/util_8cpp_source.html">util.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d2d/util_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../df/d2d/util_8cpp_source.html">util.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad2df76555abc9c4b06166c75e22424ad" name="ad2df76555abc9c4b06166c75e22424ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2df76555abc9c4b06166c75e22424ad">&#9670;&#160;</a></span>updateRayLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void updateRayLine </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dce/classRay.html">Ray</a> &amp;&#160;</td>
+          <td class="paramname"><em>ray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Updates the curve network with the given name in the polyscope environment. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ray</td><td><a class="el" href="../../d9/dce/classRay.html">Ray</a> object to add. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of the polyscope object that will be created. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d2d/util_8cpp_source.html#l00128">128</a> of file <a class="el" href="../../df/d2d/util_8cpp_source.html">util.cpp</a>.</p>
 
 </div>
 </div>

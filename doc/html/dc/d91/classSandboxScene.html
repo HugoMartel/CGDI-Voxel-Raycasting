@@ -110,8 +110,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac0a86cee7d0f5dc45b2563455de6616a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa58fa52972bfc8470d5509bbd9b45fa6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d91/classSandboxScene.html#aa58fa52972bfc8470d5509bbd9b45fa6">setVoxel</a> (const <a class="el" href="../../d0/d43/structVoxelPosition.html">VoxelPosition</a> &amp;position, const <a class="el" href="../../d6/d44/classVoxel.html">Voxel</a> &amp;voxel)</td></tr>
 <tr class="separator:aa58fa52972bfc8470d5509bbd9b45fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73cdacc41595273f52a95086e1cdb880"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d91/classSandboxScene.html#a73cdacc41595273f52a95086e1cdb880">createBlocks</a> (const std::string &amp;name)</td></tr>
-<tr class="separator:a73cdacc41595273f52a95086e1cdb880"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class containing the entire information of the loaded scene. </p>
@@ -159,9 +157,9 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Sandbox scene constructor. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">width</td><td>Width of the voxels scene. </td></tr>
-    <tr><td class="paramname">height</td><td>Height of the voxels scene. </td></tr>
-    <tr><td class="paramname">depth</td><td>Depth of the voxels scene. </td></tr>
+    <tr><td class="paramname">width</td><td>Width of the scene. </td></tr>
+    <tr><td class="paramname">height</td><td>Height of the scene. </td></tr>
+    <tr><td class="paramname">depth</td><td>Depth of the scene. </td></tr>
   </table>
   </dd>
 </dl>
@@ -205,7 +203,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">chunkPath</td><td>File location of the chunk JSON file. </td></tr>
     <tr><td class="paramname">blocksPath</td><td>File location of all the blocks <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> and properties. </td></tr>
-    <tr><td class="paramname">section</td><td>Section number to load. </td></tr>
+    <tr><td class="paramname">chosen_section</td><td>Section number to load. </td></tr>
   </table>
   </dd>
 </dl>
@@ -213,37 +211,11 @@ Public Member Functions</h2></td></tr>
 <p>DEBUG</p>
 <p>DEBUG</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d33/scene_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../da/d33/scene_8cpp_source.html">scene.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d33/scene_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../da/d33/scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a73cdacc41595273f52a95086e1cdb880" name="a73cdacc41595273f52a95086e1cdb880"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73cdacc41595273f52a95086e1cdb880">&#9670;&#160;</a></span>createBlocks()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SandboxScene::createBlocks </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Constructs voxels (vertices and faces) and adds them to the polyscope scene. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the created polyscope object. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../da/d33/scene_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../da/d33/scene_8cpp_source.html">scene.cpp</a>.</p>
-
-</div>
-</div>
 <a id="ac0a86cee7d0f5dc45b2563455de6616a" name="ac0a86cee7d0f5dc45b2563455de6616a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac0a86cee7d0f5dc45b2563455de6616a">&#9670;&#160;</a></span>getVoxel() <span class="overload">[1/2]</span></h2>
 
