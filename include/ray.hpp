@@ -93,6 +93,7 @@ public:
      */
     inline VoxelPosition getVoxelPosition() const {
         return VoxelPosition((int)origin.x(), (int)origin.y(), (int)origin.z());
+        // return VoxelPosition(origin + (direction*0.001));
     }
 };
 

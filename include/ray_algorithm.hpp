@@ -39,6 +39,19 @@ public:
     bool computeStep(Ray& ray, const SandboxScene& scene);
 };
 
+/**
+ * Classical implementation of the slab algorithm for a ray shooting AABB intersection problem.
+ */
+class BitmaskAlgorithm : public RayAlgorithm {
+public:
+    /**
+     * TODO explain the algorithm
+     * @param   ray     Ray to continue
+     * @param   scene   Voxel scene to use to check for intersections
+     * @return  True if an intersection was found
+     */
+    bool computeStep(Ray& ray, const SandboxScene& scene);
+};
 
 #endif//__RAYCAST_RAY_ALGORITHM__
 

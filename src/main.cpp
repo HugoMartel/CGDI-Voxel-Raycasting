@@ -54,6 +54,8 @@ void uiCallback() {
         raystep_pressed = false;
     }
     if (rayreset_pressed) {
+        // TODO
+        // ray->generateNew();
         ray->clearTrace();
         draw();
         rayreset_pressed = false;
@@ -74,7 +76,8 @@ int main(const int argc, const char** argv) {
     ray = std::make_unique<Ray>(Point(-2.,4.5,4.5), Point(1.,0.,0.));
 
     // Create a Ray Shooting Algorithm
-    ray_algorithm = std::make_unique<SlabAlgorithm>();
+    // ray_algorithm = std::make_unique<SlabAlgorithm>();
+    ray_algorithm = std::make_unique<BitmaskAlgorithm>();
 
     // Initialize polyscope
     polyscope::init();

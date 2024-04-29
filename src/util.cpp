@@ -95,14 +95,14 @@ void createSceneMeshes(const SandboxScene& scene, const std::string& name) {
                     We simply map the AABB's min on 0s and max on 1s
                     */
                     std::vector<Vertex> box_vertices({
-                        {box.minX + x, box.minY + y, box.minZ + z},
-                        {box.maxX + x, box.minY + y, box.minZ + z},
-                        {box.maxX + x, box.maxY + y, box.minZ + z},
-                        {box.minX + x, box.maxY + y, box.minZ + z},
-                        {box.minX + x, box.minY + y, box.maxZ + z},
-                        {box.maxX + x, box.minY + y, box.maxZ + z},
-                        {box.maxX + x, box.maxY + y, box.maxZ + z},
-                        {box.minX + x, box.maxY + y, box.maxZ + z},
+                        {box.min.x() + x, box.min.y() + y, box.min.z() + z},
+                        {box.max.x() + x, box.min.y() + y, box.min.z() + z},
+                        {box.max.x() + x, box.max.y() + y, box.min.z() + z},
+                        {box.min.x() + x, box.max.y() + y, box.min.z() + z},
+                        {box.min.x() + x, box.min.y() + y, box.max.z() + z},
+                        {box.max.x() + x, box.min.y() + y, box.max.z() + z},
+                        {box.max.x() + x, box.max.y() + y, box.max.z() + z},
+                        {box.min.x() + x, box.max.y() + y, box.max.z() + z},
                     });
                     polyscope::registerSurfaceMesh(
                         name+' '+std::to_string(x)+' '+std::to_string(y)+' '+std::to_string(z)

@@ -4,8 +4,7 @@
 #include "voxel.hpp"
 
 std::ostream& operator<<(std::ostream& os, const AABB& box) {
-    os << "AABB[" << box.minX << ", " << box.minY << ", " << box.minZ
-       << "] -> [" << box.maxX << ", " << box.maxY << ", " << box.maxZ << "]";
+    os << "AABB[" << box.min << "] -> [" << box.max << "]";
     return os;
 }
 

@@ -11,9 +11,9 @@
 
 using std::numbers::pi;
 
-using Vertex = std::array<double,3>;
+using Vertex = std::array<double, 3>;
 using Face = std::vector<size_t>;
-using Matrix4d = std::array<std::array<double,4>,4>;
+using Matrix4d = std::array<std::array<double, 4>, 4>;
 
 
 /**
@@ -27,7 +27,7 @@ private:
      * Array of 3 double to store the 3D coordinates.
      * @note Storing it as an array is very useful for polyscope since we only have to make vectors of Point objects and it is directly compatible with polyscope's functions.
      */
-    std::array<double,3> xyz;
+    std::array<double, 3> xyz;
 
 public:
     // Constructors
@@ -42,7 +42,7 @@ public:
     /**
      * Basic constructor from an array of 3 coordinates directly.
      */
-    Point(const std::array<double,3>& arr) : xyz(arr) {}
+    Point(const std::array<double, 3>& arr) : xyz(arr) {}
     /**
      * Constructor from two points to make a "3D vector"
      */
@@ -61,6 +61,12 @@ public:
      */
     inline Point operator-(const Point& p) const {
         return Point(xyz[0]-p.xyz[0], xyz[1]-p.xyz[1], xyz[2]-p.xyz[2]);
+    }
+    /**
+     * Unary minus operation for a point.
+     */
+    inline Point operator-() const {
+        return Point(-xyz[0], -xyz[1], -xyz[2]);
     }
     /**
      * Scaling operation for a Point.
