@@ -3,14 +3,93 @@
  */
 #include "ray_algorithm.hpp"
 
-bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
-    // TODO: write the actual algorithm
-    Point prev_point = ray.getLastTracePoint();
-    Point new_point(prev_point + ray.getDirection());
-    std::cout << "NEW RAY TRACE POINT: " << new_point << '\n';//! DEBUG
-    ray.addTrace(new_point);
+bool rayHitsBox(Point origin, const Point direction, AABB& box, double& distance) {
+    /**
+     * Helper function for slab algorithm
+     * Checks if the ray (origin/direction) hits the box, and if so edits distance accordingly
+     * Because an AABB has coordinates given in the frame of reference of the first vertex,
+     * the origin too should be expressed locally in that frame
+    */
+    double t_near = -HUGE_VAL;
+    double t_far = HUGE_VAL;
 
-    return false;
+    // Repeat for every pair of parallel planes
+    for(int axis=0; axis<3; ++axis) {
+        // If the ray is parallel to the planes, check whether the origin lies between them
+        if (direction[axis] == 0) {
+            if (origin[axis] < box.min[axis] || origin[axis] > box.max[axis])
+                return false;
+            continue;
+        }
+
+        // Compute distance to both planes
+        double t1 = (box.min[axis] - origin[axis]) / direction[axis];
+        double t2 = (box.max[axis] - origin[axis]) / direction[axis];
+        if (t1 > t2) {
+            // Swap t1 and t2 if necessary
+            t2 += t1;
+            t1 = t2 - t1;
+            t2 -= t1;
+        }
+        if (t1 > t_near)
+            t_near = t1;
+        if (t2 < t_far)
+            t_far = t2;
+
+        if (t_near > t_far)
+            // Box is missed
+            return false;
+        if (t_far < 0)
+            // Box is behind ray
+            return false;
+    }
+
+    distance = t_near;
+    return true;
+}
+
+bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
+    Point prev_point = ray.getLastTracePoint();
+    auto next_tile = VoxelPosition(prev_point + ray.getDirection()*1e-5);
+    auto boxes = scene.getVoxel(next_tile).getContents();
+
+    bool hits_something = false;
+    double min_distance = HUGE_VAL;
+    for (auto box: boxes) {
+        double distance_to_box;
+        Point origin_relative = prev_point - Point(next_tile.x, next_tile.y, next_tile.z);
+        if (rayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
+            hits_something = true;
+            if (distance_to_box < min_distance)
+                min_distance = distance_to_box;
+        }
+    }
+
+    if (hits_something) {
+        // Advance to the AABB that is hit
+        Point new_point(prev_point + ray.getDirection()*min_distance);
+        ray.addTrace(new_point);
+    } else {
+        // Advance to the next voxel
+        double distance_to_next_voxel = HUGE_VAL;
+        for (int axis=0; axis<3; ++axis) {
+            // offset: how far along the current axis one should move to change tile
+            double offset = fmod(prev_point[axis], 1);
+            if (offset == 0)
+                offset = 1;
+            else if (ray.getDirection()[axis] < 0)
+                offset = 1 - offset;
+
+            // distance: how far along the ray one should move to move by offset on the current axis
+            double distance = offset / std::abs(ray.getDirection()[axis]);
+            if (distance < distance_to_next_voxel)
+                distance_to_next_voxel = distance;
+        }
+        Point new_point(prev_point + ray.getDirection()*distance_to_next_voxel);
+        ray.addTrace(new_point);
+    }
+
+    return hits_something;
 }
 
 bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
