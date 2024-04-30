@@ -41,3 +41,7 @@ Program arguments:
 
 * `--benchmark`: Enables benchmark mode.
 
+## Scripts
+
+Various scripts are available to generate benchmark plots or extract voxel data from Minecraft world region files in the `scripts/` folder.
+
