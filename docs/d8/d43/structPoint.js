@@ -20,7 +20,6 @@ var structPoint =
     [ "operator/=", "d8/d43/structPoint.html#adb73cb4417b1a7e0e87c42cae69dae58", null ],
     [ "operator[]", "d8/d43/structPoint.html#a70b02e202b264c333a9622a5d42e1c26", null ],
     [ "operator[]", "d8/d43/structPoint.html#a8305a85d38e9d934a9d0680fba3e79dc", null ],
-    [ "transform", "d8/d43/structPoint.html#a17d03bffec7c30fe60144a5a7b1fc82e", null ],
     [ "x", "d8/d43/structPoint.html#a801e4626e664f38f8f84bd0e63b8b97b", null ],
     [ "x", "d8/d43/structPoint.html#a09748b8dcb7b8b1c23a253b7499fb6b7", null ],
     [ "y", "d8/d43/structPoint.html#a243cd41d0441e284df4f5b44846b50b7", null ],

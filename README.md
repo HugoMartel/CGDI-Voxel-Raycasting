@@ -65,6 +65,7 @@ Various scripts are available to generate benchmark plots or extract voxel data 
 Use this script to extract chunk blocks from a Minecraft .mca region file from a world folder.
 
 **Example:**
+
 Extraction of the spawn chunks' blocks of a given minecraft world.
 ```bash
 ./mca_to_json.sh regions/test_world.mca
@@ -75,7 +76,8 @@ Extraction of the spawn chunks' blocks of a given minecraft world.
 Use this script to generate plots from generated text files from the main program using the `--benchmark` argument.
 
 **Example:**
-Genrates all the plots and extracts data from all the benchmark files in the data/ folder.
+
+Generates all the plots and extracts data from all the benchmark files in the data/ folder.
 ```bash
 ./gen_everything.sh
 ```
