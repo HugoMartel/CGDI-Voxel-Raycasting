@@ -33,5 +33,11 @@ Program arguments:
 
 * `--section <section number>`, `-s <section number>`: Section of the chunk to extract, defaults to 0 if not provided.
 
+* `--algorithm <algorithm name>`, `-a <algorithm name>`: Selects the algorithm to use for the ray shooting. Algorithm name can be:
+    - slabs *(DEFAULT)*
+    - bitmask
+
 * `--verbose`, `-v`: Enables verbose output.
+
+* `--benchmark`: Enables benchmark mode.
 

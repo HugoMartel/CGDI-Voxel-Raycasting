@@ -9,6 +9,19 @@
 #define BLOCK_SHAPES_FILE_PATH "../voxels/1_20_1_block_shapes.json"
 
 /**
+ * Enum storing all the possible algorithm types that can be used in the program.
+ */
+enum RayAlgorithms {
+    SLABS   = 0,
+    BITMASK = 1
+};
+
+/**
+ * TODO
+ */
+std::ostream& operator<<(std::ostream& os, const RayAlgorithms& a);
+
+/**
  * Class used to parse program arguments and store them.
  */
 struct ArgParser {
@@ -30,9 +43,17 @@ public:
      */
     int section;
     /**
+     * Selects the ray shooting algorithm to use.
+     */
+    RayAlgorithms ray_algorithm;
+    /**
      * Enables verbose output.
      */
     bool verbose;
+    /**
+     * Enables benchmark mode.
+     */
+    bool benchmark;
 
     // Constructors
     /**

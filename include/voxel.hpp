@@ -93,7 +93,7 @@ public:
      * @param   centerX     Horizontal center.
      * @param   centerY     Vertical center.
      * @param   centerZ     Depth center.
-     * @param   sideLenghth Length of every side of the bounding cube.
+     * @param   sideLength  Length of every side of the bounding cube.
      */
     AABB(
         const double& centerX, const double& centerY, const double& centerZ,

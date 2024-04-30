@@ -72,7 +72,6 @@ public:
         trace.clear();
         trace.emplace_back(origin);
     }
-
     /**
      * Getter for the origin point of the ray.
      * @return  A copy of the point.
@@ -95,6 +94,11 @@ public:
         return VoxelPosition((int)origin.x(), (int)origin.y(), (int)origin.z());
         // return VoxelPosition(origin + (direction*0.001));
     }
+    /**
+     * Resets the ray by generating new random coordinates and direction.
+     * @note Random coordinates are within the Voxel scene
+     */
+    void reset();
 };
 
 #endif//__RAYCAST_RAY__

@@ -2,8 +2,10 @@
  * @file main.cpp
  */
 #include <iostream>
-
+#include <fstream>
 #include <memory>
+#include <chrono>
+
 #include <polyscope/polyscope.h>
 
 #include "argparser.hpp"
@@ -49,14 +51,19 @@ void uiCallback() {
 
     // Buttons callbacks
     if (raystep_pressed) {
-        ray_algorithm->computeStep(*ray, *scene);
-        draw();
+        const Point ray_pos = ray->getLastTracePoint();
+        if (
+            ray_pos.x() >= 0. && ray_pos.y() >= 0. && ray_pos.z() >= 0.
+            && ray_pos.x() < CHUNK_SIDE_SIZE && ray_pos.y() < CHUNK_SIDE_SIZE
+            && ray_pos.z() < CHUNK_SIDE_SIZE
+        ) {
+            ray_algorithm->computeStep(*ray, *scene);
+            draw();
+        }
         raystep_pressed = false;
     }
     if (rayreset_pressed) {
-        // TODO
-        // ray->generateNew();
-        ray->clearTrace();
+        ray->reset();
         draw();
         rayreset_pressed = false;
     }
@@ -73,14 +80,25 @@ int main(const int argc, const char** argv) {
     scene = std::make_unique<SandboxScene>(args.chunkPath, args.shapesPath, args.section);
 
     // Create a Ray
-    ray = std::make_unique<Ray>(Point(-2.,4.5,4.5), Point(1.,0.,0.));
+    ray = std::make_unique<Ray>(Point(8.,5.5,4.5), Point(1.,0.,0.));
 
     // Create a Ray Shooting Algorithm
-    // ray_algorithm = std::make_unique<SlabAlgorithm>();
-    ray_algorithm = std::make_unique<BitmaskAlgorithm>();
+    switch (args.ray_algorithm) {
+        case RayAlgorithms::SLABS:
+        ray_algorithm = std::make_unique<SlabAlgorithm>();
+        break;
+    case RayAlgorithms::BITMASK:
+        ray_algorithm = std::make_unique<BitmaskAlgorithm>();
+        break;
+    }
 
     // Initialize polyscope
     polyscope::init();
+    polyscope::options::automaticallyComputeSceneExtents = false;
+    polyscope::state::lengthScale = 5.;
+    polyscope::state::boundingBox = std::tuple<glm::vec3, glm::vec3>{
+        {0., 0., 0.}, {CHUNK_SIDE_SIZE, CHUNK_SIDE_SIZE, CHUNK_SIDE_SIZE}
+    };
 
     // Build the Mesh
     if (args.verbose)
@@ -89,13 +107,50 @@ int main(const int argc, const char** argv) {
     // Finish setting up the initial Polyscope scene
     init();
 
-    // Specify the callback for the top right UI
-    polyscope::state::userCallback = uiCallback;
+    if (args.benchmark) {
+        // Shoot N rays and measure the execution time.
+        constexpr int N = 1000;
+        const std::string output_filename = 
+            "benchmark_"+std::to_string(N)+'_'+std::to_string(args.ray_algorithm);
+        std::ofstream output(output_filename, std::ios_base::out);
 
-    // Give control to the polyscope gui
-    if (args.verbose)
-        std::cout << "[+] Starting the Polyscope GUI\n";
-    polyscope::show();
+        if (args.verbose)
+            std::cout << "[+] Starting the Benchmark\n";
+        for (int i=0; i<N; ++i) {
+            // Shoot a ray until it intersects or goes out of the scene
+            ray->reset();
+            output << ray->getOrigin() << ';' << ray->getDirection() << '|';
+            Point ray_pos = ray->getLastTracePoint();
+            while (
+                ray_pos.x() >= 0. && ray_pos.y() >= 0. && ray_pos.z() >= 0.
+                && ray_pos.x() < CHUNK_SIDE_SIZE && ray_pos.y() < CHUNK_SIDE_SIZE
+                && ray_pos.z() < CHUNK_SIDE_SIZE
+            ) {
+                // Actual benchmark of the algorithm step
+                const auto t_start = std::chrono::high_resolution_clock::now();
+                const bool found_inter = ray_algorithm->computeStep(*ray, *scene);
+                const auto t_end = std::chrono::high_resolution_clock::now();
+                // Write results to file
+                output << ray_pos << ';';
+                output << std::chrono::duration<double, std::micro>(t_end - t_start) << ';';
+                ray_pos = ray->getLastTracePoint();
+
+                if (found_inter)
+                    break;
+            }
+            output << '\n';
+        }
+        if (args.verbose)
+            std::cout << "[+] Benchmark written to " << output_filename << '\n';
+    } else {
+        // Specify the callback for the top right UI
+        polyscope::state::userCallback = uiCallback;
+
+        // Give control to the polyscope gui
+        if (args.verbose)
+            std::cout << "[+] Starting the Polyscope GUI\n";
+        polyscope::show();
+    }
 
     return EXIT_SUCCESS;
 }

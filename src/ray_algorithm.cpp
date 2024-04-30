@@ -3,13 +3,13 @@
  */
 #include "ray_algorithm.hpp"
 
-bool rayHitsBox(Point origin, const Point direction, AABB& box, double& distance) {
-    /**
-     * Helper function for slab algorithm
-     * Checks if the ray (origin/direction) hits the box, and if so edits distance accordingly
-     * Because an AABB has coordinates given in the frame of reference of the first vertex,
-     * the origin too should be expressed locally in that frame
-    */
+/**
+ * Helper function for slab algorithm
+ * Checks if the ray (origin/direction) hits the box, and if so edits distance accordingly
+ * Because an AABB has coordinates given in the frame of reference of the first vertex,
+ * the origin too should be expressed locally in that frame
+ */
+bool rayHitsBox(const Point& origin, const Point& direction, const AABB& box, double& distance) {
     double t_near = -HUGE_VAL;
     double t_far = HUGE_VAL;
 
@@ -55,7 +55,7 @@ bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
 
     bool hits_something = false;
     double min_distance = HUGE_VAL;
-    for (auto box: boxes) {
+    for (auto& box: boxes) {
         double distance_to_box;
         Point origin_relative = prev_point - Point(next_tile.x, next_tile.y, next_tile.z);
         if (rayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
@@ -95,23 +95,11 @@ bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
 bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     const Point ray_pos = ray.getLastTracePoint();
 
-    // Check if the ray is outside of the scene
-    if (ray_pos.x() < 0. || ray_pos.y() < 0. || ray_pos.z() < 0. || ray_pos.x() >= CHUNK_SIDE_SIZE
-       || ray_pos.y() >= CHUNK_SIDE_SIZE || ray_pos.z() >= CHUNK_SIDE_SIZE) {
-        // if so, simply go to the next "voxel".
-        Point new_point(ray_pos + ray.getDirection());
-        std::cout << "NEW RAY TRACE POINT: " << new_point << '\n';//! DEBUG
-        ray.addTrace(new_point);
-
-        return false;
-    }
-
     /* GLSL version provided in the paper
      * TODO: REMOVE THIS CODE
      */
-    // TODO: check if the addition of a fraction of the ray direction can be a problem
     // this is only used to make sure that we are not right on an edge of a voxel
-    Voxel curr_voxel = scene.getVoxel(VoxelPosition(ray_pos + (ray.getDirection()*0.001)));
+    Voxel curr_voxel = scene.getVoxel(VoxelPosition(ray_pos + (ray.getDirection()*1e5)));
 
     for (const AABB& box : curr_voxel.getContents()) {
         std::cout << "CHECKING: " << box << '\n';//! DEBUG

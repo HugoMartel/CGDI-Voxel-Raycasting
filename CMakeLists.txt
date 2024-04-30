@@ -39,6 +39,7 @@ target_sources(raycast PUBLIC src/main.cpp
                               src/geometry.cpp
                               src/voxel.cpp
                               src/scene.cpp
+                              src/ray.cpp
                               src/ray_algorithm.cpp
                               src/util.cpp)
 target_link_libraries(raycast PUBLIC polyscope jsoncpp_lib)

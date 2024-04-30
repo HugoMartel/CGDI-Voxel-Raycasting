@@ -178,13 +178,13 @@ public:
     }
 
     /**
-     * Dot product betwenn two points.
+     * Dot product between two points.
      */
     inline double dot(const Point& p) const {
         return xyz[0]*p.xyz[0] + xyz[1]*p.xyz[1] + xyz[2]*p.xyz[2];
     }
     /**
-     * Cross product betwenn two points.
+     * Cross product between two points.
      */
     inline Point cross(const Point& p) const {
         return Point(
