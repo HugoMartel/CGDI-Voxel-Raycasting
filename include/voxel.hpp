@@ -36,7 +36,7 @@ public:
     VoxelPosition(const std::array<int, 3>& xyz) : x(xyz[0]), y(xyz[1]), z(xyz[2]) {}
     /**
      * Construct a VoxelPosition from a Point casting float coordinates to int.
-     * @param   xyz     Array storing the 3 coordinates in this order x, y and z.
+     * @param   p       Point to extract the coordinates from.
      */
     VoxelPosition(const Point& p) : x((int)p.x()), y((int)p.y()), z((int)p.z()) {}
 
@@ -104,14 +104,15 @@ public:
     // Methods
     /**
      * Get the radius in each direction of the AABB.
-     * TODO
+     * @note    Here the radius means the distance from the center to each side of the box.
+     * @return  Point storing the distances in each direction.
      */
     Point radius() const{
         return Point((max.x()-min.x())/2., (max.y()-min.y())/2., (max.z()-min.z())/2.);
     }
     /**
      * Get the center point of the AABB.
-     * TODO
+     * @return  The center point of the box.
      */
     Point center() const{
         return Point((max.x()+min.x())/2., (max.y()+min.y())/2., (max.z()+min.z())/2.);

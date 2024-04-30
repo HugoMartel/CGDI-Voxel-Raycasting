@@ -9,6 +9,9 @@
 #include <cstring>
 #include <array>
 
+/**
+ * Lookup table used to convert a RayAlgorithms enum item to string.
+ */
 std::array<std::string, 2> ray_algorithms_lookup({
     "slabs",
     "bitmask"
@@ -17,6 +20,10 @@ std::array<std::string, 2> ray_algorithms_lookup({
 std::ostream& operator<<(std::ostream& os, const RayAlgorithms& a) {
     os << ray_algorithms_lookup[a];
     return os;
+}
+
+std::string convert_to_string(const RayAlgorithms& a) {
+    return ray_algorithms_lookup[a];
 }
 
 

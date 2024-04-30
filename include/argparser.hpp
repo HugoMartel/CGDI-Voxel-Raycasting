@@ -6,6 +6,9 @@
 
 #include <string>
 
+/**
+ * Default Block shapes file to used if none is provided.
+ */
 #define BLOCK_SHAPES_FILE_PATH "../voxels/1_20_1_block_shapes.json"
 
 /**
@@ -17,9 +20,19 @@ enum RayAlgorithms {
 };
 
 /**
- * TODO
+ * Stream write override for a RayAlgorithms enum item.
+ * @param   os  Output stream to write to.
+ * @param   a   RayAlgorithms to convert to string and write.
+ * @return  The same output stream from the arguments.
  */
 std::ostream& operator<<(std::ostream& os, const RayAlgorithms& a);
+/**
+ * Converts a RayAlgorithms enum item to string.
+ * @param   a   RayAlgorithms to convert to string.
+ * @return  Corresponding std::string.
+ */
+std::string convert_to_string(const RayAlgorithms& a);
+
 
 /**
  * Class used to parse program arguments and store them.

@@ -108,13 +108,40 @@ $(function(){initNavTree('d2/df1/argparser_8cpp.html','../../'); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac18c531195f5c95d332f7cccb0c4cbe0" id="r_ac18c531195f5c95d332f7cccb0c4cbe0"><td class="memItemLeft" align="right" valign="top"><a id="ac18c531195f5c95d332f7cccb0c4cbe0" name="ac18c531195f5c95d332f7cccb0c4cbe0"></a>
-std::array&lt; std::string, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ray_algorithms_lookup</b> ({ &quot;slabs&quot;, &quot;bitmask&quot; })</td></tr>
+<tr class="memitem:ac18c531195f5c95d332f7cccb0c4cbe0" id="r_ac18c531195f5c95d332f7cccb0c4cbe0"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::string, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac18c531195f5c95d332f7cccb0c4cbe0">ray_algorithms_lookup</a> ({ &quot;slabs&quot;, &quot;bitmask&quot; })</td></tr>
 <tr class="separator:ac18c531195f5c95d332f7cccb0c4cbe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee9497f67173b2e148b6bbb726050017" id="r_aee9497f67173b2e148b6bbb726050017"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee9497f67173b2e148b6bbb726050017">operator&lt;&lt;</a> (std::ostream &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">os</a>, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d1/d4f/argparser_8hpp.html#a7e778301f43c87e175a0646c19d3da76">RayAlgorithms</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">a</a>)</td></tr>
 <tr class="separator:aee9497f67173b2e148b6bbb726050017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54511fbe08e45eeb38e2ad8b5f26c51a" id="r_a54511fbe08e45eeb38e2ad8b5f26c51a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54511fbe08e45eeb38e2ad8b5f26c51a">convert_to_string</a> (<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d1/d4f/argparser_8hpp.html#a7e778301f43c87e175a0646c19d3da76">RayAlgorithms</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">a</a>)</td></tr>
+<tr class="separator:a54511fbe08e45eeb38e2ad8b5f26c51a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a54511fbe08e45eeb38e2ad8b5f26c51a" name="a54511fbe08e45eeb38e2ad8b5f26c51a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54511fbe08e45eeb38e2ad8b5f26c51a">&#9670;&#160;</a></span>convert_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string convert_to_string </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d1/d4f/argparser_8hpp.html#a7e778301f43c87e175a0646c19d3da76">RayAlgorithms</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Converts a RayAlgorithms enum item to string. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>RayAlgorithms to convert to string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Corresponding std::string. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df1/argparser_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../d2/df1/argparser_8cpp_source.html">argparser.cpp</a>.</p>
+
+</div>
+</div>
 <a id="aee9497f67173b2e148b6bbb726050017" name="aee9497f67173b2e148b6bbb726050017"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee9497f67173b2e148b6bbb726050017">&#9670;&#160;</a></span>operator&lt;&lt;()</h2>
 
@@ -133,9 +160,34 @@ std::array&lt; std::string, 2 &gt;&#160;</td><td class="memItemRight" valign="bo
         </tr>
       </table>
 </div><div class="memdoc">
-<p>TODO </p>
+<p>Stream write override for a RayAlgorithms enum item. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Output stream to write to. </td></tr>
+    <tr><td class="paramname">a</td><td>RayAlgorithms to convert to string and write. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The same output stream from the arguments. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df1/argparser_8cpp_source.html#l00017">17</a> of file <a class="el" href="../../d2/df1/argparser_8cpp_source.html">argparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df1/argparser_8cpp_source.html#l00020">20</a> of file <a class="el" href="../../d2/df1/argparser_8cpp_source.html">argparser.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac18c531195f5c95d332f7cccb0c4cbe0" name="ac18c531195f5c95d332f7cccb0c4cbe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac18c531195f5c95d332f7cccb0c4cbe0">&#9670;&#160;</a></span>ray_algorithms_lookup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt; std::string, 2 &gt; ray_algorithms_lookup </td>
+          <td>(</td>
+          <td class="paramtype">{ &quot;slabs&quot;, &quot;bitmask&quot; }</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Lookup table used to convert a RayAlgorithms enum item to string. </p>
 
 </div>
 </div>

@@ -102,13 +102,18 @@ Building</h1>
 <li>jsoncpp</li>
 <li>cmake</li>
 </ul>
+<p>On Debian like: <code>apt install cmake libjsoncpp-dev</code></p>
+<p>On Fedora like: <code>dnf install cmake jsoncpp-devel</code></p>
 <p>Building the project: </p><div class="fragment"><div class="line">mkdir build</div>
 <div class="line">cd build</div>
 <div class="line">cmake .. -DCMAKE_BUILD_TYPE=Release</div>
 <div class="line">make -j4</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md2"></a>
 Usage</h1>
-<p>Example: </p><div class="fragment"><div class="line">./raycast -c ../voxels/superflat_sandstone_chunk.json</div>
+<p><b>Examples:</b></p>
+<p>Starting the Polyscope GUI to visualize ray shooting algorithms computation steps:</p>
+<div class="fragment"><div class="line">./raycast -c ../voxels/superflat_sandstone_chunk.json</div>
+</div><!-- fragment --><p>Generating a benchmark file: </p><div class="fragment"><div class="line">./raycast -c ../voxels/test_world_chunk.json -s 4 --algorithm slabs --benchmark --verbose</div>
 </div><!-- fragment --><p>Program arguments:</p>
 <p><b>required</b></p><ul>
 <li><code>--chunk &lt;file path&gt;</code>, <code>-c &lt;file path&gt;</code>: JSON file containing a chunk content generated from a NBT file (can be generated using the script in this repository).</li>
@@ -122,9 +127,20 @@ Usage</h1>
 </ul>
 </li>
 <li><code>--verbose</code>, <code>-v</code>: Enables verbose output.</li>
-<li><code>--benchmark</code>: Enables benchmark mode. </li>
+<li><code>--benchmark</code>: Enables benchmark mode.</li>
 </ul>
-</div></div><!-- PageDoc -->
+<h1><a class="anchor" id="autotoc_md3"></a>
+Scripts</h1>
+<p>Various scripts are available to generate benchmark plots or extract voxel data from Minecraft world region files in the <code>scripts/</code> folder.</p>
+<h2><a class="anchor" id="autotoc_md4"></a>
+MCA to JSON</h2>
+<p>Use this script to extract chunk blocks from a Minecraft .mca region file from a world folder.</p>
+<p><b>Example:</b> Extraction of the spawn chunks' blocks of a given minecraft world. </p><div class="fragment"><div class="line">./mca_to_json.sh regions/test_world.mca</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+Benchmark plots</h2>
+<p>Use this script to generate plots from generated text files from the main program using the <code>--benchmark</code> argument.</p>
+<p><b>Example:</b> Genrates all the plots and extracts data from all the benchmark files in the data/ folder. </p><div class="fragment"><div class="line">./gen_everything.sh</div>
+</div><!-- fragment --> </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"/>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['norm1_0',['norm1',['../d8/d43/structPoint.html#aa5091d8cfa8066d2ff18c0209e7e578e',1,'Point']]],
-  ['norm2_1',['norm2',['../d8/d43/structPoint.html#a1b5e08704b6396ec44905d8b73d17945',1,'Point']]],
-  ['norminf_2',['normInf',['../d8/d43/structPoint.html#ab7fabb128e92b0b72528f56248b19bfe',1,'Point']]]
+  ['main_2ecpp_0',['main.cpp',['../df/d0a/main_8cpp.html',1,'']]],
+  ['max_1',['max',['../d9/d4d/structAABB.html#ab96d63a7c7abc10f58dac8c918919dd6',1,'AABB']]],
+  ['mca_20to_20json_2',['MCA to JSON',['../index.html#autotoc_md4',1,'']]],
+  ['min_3',['min',['../d9/d4d/structAABB.html#a325f20cb413616f32a25a5d11ea97b9e',1,'AABB']]]
 ];

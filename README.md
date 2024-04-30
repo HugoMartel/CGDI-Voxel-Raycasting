@@ -8,6 +8,13 @@ Dependencies to install:
 - jsoncpp
 - cmake
 
+On Debian like:
+`apt install cmake libjsoncpp-dev`
+
+On Fedora like:
+`dnf install cmake jsoncpp-devel`
+
+
 Building the project:
 ```sh
 mkdir build
@@ -18,9 +25,17 @@ make -j4
 
 ## Usage
 
-Example:
-```
+**Examples:**
+
+Starting the Polyscope GUI to visualize ray shooting algorithms computation steps:
+
+```bash
 ./raycast -c ../voxels/superflat_sandstone_chunk.json
+```
+
+Generating a benchmark file:
+```bash
+./raycast -c ../voxels/test_world_chunk.json -s 4 --algorithm slabs --benchmark --verbose
 ```
 
 Program arguments:
@@ -44,4 +59,24 @@ Program arguments:
 ## Scripts
 
 Various scripts are available to generate benchmark plots or extract voxel data from Minecraft world region files in the `scripts/` folder.
+
+### MCA to JSON
+
+Use this script to extract chunk blocks from a Minecraft .mca region file from a world folder.
+
+**Example:**
+Extraction of the spawn chunks' blocks of a given minecraft world.
+```bash
+./mca_to_json.sh regions/test_world.mca
+```
+
+### Benchmark plots
+
+Use this script to generate plots from generated text files from the main program using the `--benchmark` argument.
+
+**Example:**
+Genrates all the plots and extracts data from all the benchmark files in the data/ folder.
+```bash
+./gen_everything.sh
+```
 

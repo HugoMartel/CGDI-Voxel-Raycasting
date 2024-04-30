@@ -111,7 +111,7 @@ int main(const int argc, const char** argv) {
         // Shoot N rays and measure the execution time.
         constexpr int N = 100000;
         const std::string output_filename = 
-            "benchmark_"+std::to_string(N)+'_'+std::to_string(args.ray_algorithm)+".txt";
+            "benchmark_"+std::to_string(N)+'_'+convert_to_string(args.ray_algorithm)+".txt";
         std::ofstream output(output_filename, std::ios_base::out);
 
         if (args.verbose)

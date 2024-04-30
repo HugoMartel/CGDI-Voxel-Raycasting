@@ -1,11 +1,16 @@
 var searchData=
 [
-  ['sandboxscene_0',['SandboxScene',['../dc/d91/classSandboxScene.html',1,'SandboxScene'],['../dc/d91/classSandboxScene.html#a53e0e942c7b4a437e272dabb8524a395',1,'SandboxScene::SandboxScene(const int width, const int height, const int depth)'],['../dc/d91/classSandboxScene.html#a800d9d3b61f204ffe510f82e89525b35',1,'SandboxScene::SandboxScene(const std::string &amp;chunkPath, const std::string &amp;blocksPath, const int chosen_section)']]],
-  ['scene_2ecpp_1',['scene.cpp',['../da/d33/scene_8cpp.html',1,'']]],
-  ['scene_2ehpp_2',['scene.hpp',['../d5/d9b/scene_8hpp.html',1,'']]],
-  ['section_3',['section',['../d8/da9/structArgParser.html#a2a78d7d800c0c2788a66d6937c46e63e',1,'ArgParser']]],
-  ['setvoxel_4',['setVoxel',['../dc/d91/classSandboxScene.html#aa58fa52972bfc8470d5509bbd9b45fa6',1,'SandboxScene']]],
-  ['shapespath_5',['shapesPath',['../d8/da9/structArgParser.html#a1717a5c719f848ae8b80889a7304fe1c',1,'ArgParser']]],
-  ['slabalgorithm_6',['SlabAlgorithm',['../d9/dca/classSlabAlgorithm.html',1,'']]],
-  ['str_5fto_5faabbvector_7',['str_to_aabbvector',['../df/d2d/util_8cpp.html#afd67632727a53af4f428d3f82b6e86e3',1,'str_to_aabbvector(const std::string &amp;s):&#160;util.cpp'],['../d0/d3f/util_8hpp.html#afd67632727a53af4f428d3f82b6e86e3',1,'str_to_aabbvector(const std::string &amp;s):&#160;util.cpp']]]
+  ['radius_0',['radius',['../d9/d4d/structAABB.html#a74df090fe6263e601ebc4480c2c58ba7',1,'AABB']]],
+  ['ray_1',['Ray',['../d9/dce/classRay.html',1,'Ray'],['../d9/dce/classRay.html#aed0e9cbe5b35b89098035b9f85c80ef3',1,'Ray::Ray()']]],
+  ['ray_2ecpp_2',['ray.cpp',['../da/d00/ray_8cpp.html',1,'']]],
+  ['ray_2ehpp_3',['ray.hpp',['../db/d1d/ray_8hpp.html',1,'']]],
+  ['ray_5falgorithm_4',['ray_algorithm',['../d8/da9/structArgParser.html#a9e55e76d850c60863d5dd41b6312c63f',1,'ArgParser']]],
+  ['ray_5falgorithm_2ecpp_5',['ray_algorithm.cpp',['../da/d31/ray__algorithm_8cpp.html',1,'']]],
+  ['ray_5falgorithm_2ehpp_6',['ray_algorithm.hpp',['../d5/db5/ray__algorithm_8hpp.html',1,'']]],
+  ['ray_5falgorithms_5flookup_7',['ray_algorithms_lookup',['../d2/df1/argparser_8cpp.html#ac18c531195f5c95d332f7cccb0c4cbe0',1,'argparser.cpp']]],
+  ['rayalgorithm_8',['RayAlgorithm',['../d4/d8e/classRayAlgorithm.html',1,'']]],
+  ['rayalgorithms_9',['RayAlgorithms',['../d1/d4f/argparser_8hpp.html#a7e778301f43c87e175a0646c19d3da76',1,'argparser.hpp']]],
+  ['raycasting_10',['CGDI Voxel Raycasting',['../index.html',1,'']]],
+  ['rayhitsbox_11',['rayHitsBox',['../da/d31/ray__algorithm_8cpp.html#aa9f4a5f6a8b16d45f0b9abea7ae62cec',1,'ray_algorithm.cpp']]],
+  ['reset_12',['reset',['../d9/dce/classRay.html#a268b10e7de9eb55ad20827a6fba0d031',1,'Ray']]]
 ];

@@ -27,6 +27,10 @@ var NAVTREE =
   [ "CGDI Voxel Raycasting", "index.html", [
     [ "Building", "index.html#autotoc_md1", null ],
     [ "Usage", "index.html#autotoc_md2", null ],
+    [ "Scripts", "index.html#autotoc_md3", [
+      [ "MCA to JSON", "index.html#autotoc_md4", null ],
+      [ "Benchmark plots", "index.html#autotoc_md5", null ]
+    ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -44,7 +48,8 @@ var NAVTREE =
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
         [ "Typedefs", "globals_type.html", null ],
-        [ "Enumerations", "globals_enum.html", null ]
+        [ "Enumerations", "globals_enum.html", null ],
+        [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
   ] ]

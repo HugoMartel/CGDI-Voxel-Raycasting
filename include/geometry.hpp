@@ -13,7 +13,6 @@ using std::numbers::pi;
 
 using Vertex = std::array<double, 3>;
 using Face = std::vector<size_t>;
-using Matrix4d = std::array<std::array<double, 4>, 4>;
 
 
 /**
@@ -210,18 +209,6 @@ public:
      */
     inline double normInf() const {
         return std::max(std::abs(xyz[0]), std::max(std::abs(xyz[1]), std::abs(xyz[2])));
-    }
-    /**
-     * Apply a 4x4 affine transformation matrix to this point.
-     * @param   m   4x4 matrix stored as an array of arrays.
-     * @return  A reference to this point after the transformation.
-     */
-    inline Point& transform(const Matrix4d& m) {
-        double new_x = xyz[0]*m[0][0] + xyz[1]*m[0][1] + xyz[2]*m[0][2] + m[0][3];
-        double new_y = xyz[0]*m[1][0] + xyz[1]*m[1][1] + xyz[2]*m[1][2] + m[1][3];
-        double new_z = xyz[0]*m[2][0] + xyz[1]*m[2][1] + xyz[2]*m[2][2] + m[2][3];
-        xyz[0] = new_x, xyz[1] = new_y, xyz[2] = new_z;
-        return *this;
     }
 
     // FRIEND FUNCTIONS
