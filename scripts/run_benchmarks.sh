@@ -16,7 +16,7 @@ $SCRIPT_DIR/../build/raycast -c $SCRIPT_DIR/../voxels/superflat_sandstone_chunk.
 
 # Marching slabs
 echo "Benchmarking marching slabs"
-for step in $(seq 0.01 0.01 0.5)
+for step in $(LANG=en-US seq 0.01 0.01 0.5)
 do
     echo "step=$step"
     $SCRIPT_DIR/../build/raycast -c $SCRIPT_DIR/../voxels/test_world_chunk.json -s 4 --algorithm marching --step $step --benchmark
