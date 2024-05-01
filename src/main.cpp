@@ -100,7 +100,7 @@ int main(const int argc, const char** argv) {
         // Shoot N rays and measure the execution time.
         constexpr int N = 100000;
         constexpr int initial_seed = 1;
-        const std::string output_filename = 
+        const std::string output_filename =
             "benchmark_"+std::filesystem::path(args.chunkPath).stem().string()+'_'
             +std::to_string(N)+'_'+convert_to_string(args.ray_algorithm)
             +(args.ray_algorithm == RayAlgorithms::MARCHING ?
@@ -112,8 +112,8 @@ int main(const int argc, const char** argv) {
         for (int i=0; i<N; ++i) {
             // Shoot a ray until it intersects or goes out of the scene
             ray->reset(initial_seed+i);
-            output << ray->getOrigin() << ';' << ray->getDirection() << '|';
-            Point ray_pos = ray->getLastTracePoint();
+            Point ray_pos = ray->getOrigin();
+            output << ray_pos << ';' << ray->getDirection() << '|';
             while (
                 ray_pos.x() > 0. && ray_pos.y() > 0. && ray_pos.z() > 0.
                 && ray_pos.x() < CHUNK_SIDE_SIZE-1 && ray_pos.y() < CHUNK_SIDE_SIZE-1
@@ -123,10 +123,11 @@ int main(const int argc, const char** argv) {
                 const auto t_start = std::chrono::high_resolution_clock::now();
                 const bool found_inter = ray_algorithm->computeStep(*ray, *scene);
                 const auto t_end = std::chrono::high_resolution_clock::now();
+
                 // Write results to file
-                output << ray_pos << ';';
-                output << std::chrono::duration<double, std::micro>(t_end - t_start) << ';';
                 ray_pos = ray->getLastTracePoint();
+                output << ray_pos << ';';
+                output << std::chrono::duration<double, std::chrono::microseconds::period>(t_end - t_start).count() << ';';
 
                 if (found_inter)
                     break;
