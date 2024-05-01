@@ -97,8 +97,9 @@ public:
     /**
      * Resets the ray by generating new random coordinates and direction.
      * @note Random coordinates are within the Voxel scene
+     * @param   seed    Pseudorandom generator seed, random seed set if 0.
      */
-    void reset();
+    void reset(const int seed=0);
 };
 
 #endif//__RAYCAST_RAY__

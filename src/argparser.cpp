@@ -113,6 +113,11 @@ ArgParser::ArgParser(const int argc, const char** argv)
         }
     }
 
+    if (chunkPath == "") {
+        std::cout << "Missing --chunk argument, can't proceed.\nSee the documentation to see what arguments you can provide this program.\n";
+        exit(-1);
+    }
+
     assert(std::filesystem::exists(chunkPath));
     assert(std::filesystem::exists(shapesPath));
     // assert(section >= -4 && section <= 15);

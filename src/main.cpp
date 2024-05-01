@@ -99,6 +99,7 @@ int main(const int argc, const char** argv) {
     if (args.benchmark) {
         // Shoot N rays and measure the execution time.
         constexpr int N = 100000;
+        constexpr int initial_seed = 1;
         const std::string output_filename = 
             "benchmark_"+std::filesystem::path(args.chunkPath).stem().string()+'_'
             +std::to_string(N)+'_'+convert_to_string(args.ray_algorithm)
@@ -110,7 +111,7 @@ int main(const int argc, const char** argv) {
             std::cout << "[+] Starting the Benchmark\n";
         for (int i=0; i<N; ++i) {
             // Shoot a ray until it intersects or goes out of the scene
-            ray->reset();
+            ray->reset(initial_seed+i);
             output << ray->getOrigin() << ';' << ray->getDirection() << '|';
             Point ray_pos = ray->getLastTracePoint();
             while (
