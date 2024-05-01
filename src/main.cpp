@@ -3,6 +3,7 @@
  */
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include <memory>
 #include <chrono>
 
@@ -53,9 +54,9 @@ void uiCallback() {
     if (raystep_pressed) {
         const Point ray_pos = ray->getLastTracePoint();
         if (
-            ray_pos.x() >= 0. && ray_pos.y() >= 0. && ray_pos.z() >= 0.
-            && ray_pos.x() < CHUNK_SIDE_SIZE && ray_pos.y() < CHUNK_SIDE_SIZE
-            && ray_pos.z() < CHUNK_SIDE_SIZE
+            ray_pos.x() > 0. && ray_pos.y() > 0. && ray_pos.z() > 0.
+            && ray_pos.x() < CHUNK_SIDE_SIZE-1 && ray_pos.y() < CHUNK_SIDE_SIZE-1
+            && ray_pos.z() < CHUNK_SIDE_SIZE-1
         ) {
             ray_algorithm->computeStep(*ray, *scene);
             draw();
@@ -84,34 +85,25 @@ int main(const int argc, const char** argv) {
 
     // Create a Ray Shooting Algorithm
     switch (args.ray_algorithm) {
-        case RayAlgorithms::SLABS:
+    case RayAlgorithms::SLABS:
         ray_algorithm = std::make_unique<SlabAlgorithm>();
+        break;
+    case RayAlgorithms::MARCHING:
+        ray_algorithm = std::make_unique<MarchingSlabAlgorithm>(args.marching_step);
         break;
     case RayAlgorithms::BITMASK:
         ray_algorithm = std::make_unique<BitmaskAlgorithm>();
         break;
     }
 
-    // Initialize polyscope
-    polyscope::init();
-    polyscope::options::automaticallyComputeSceneExtents = false;
-    polyscope::state::lengthScale = 5.;
-    polyscope::state::boundingBox = std::tuple<glm::vec3, glm::vec3>{
-        {0., 0., 0.}, {CHUNK_SIDE_SIZE, CHUNK_SIDE_SIZE, CHUNK_SIDE_SIZE}
-    };
-
-    // Build the Mesh
-    if (args.verbose)
-        std::cout << "[+] Creating the blocks into Polyscope's scene\n";
-
-    // Finish setting up the initial Polyscope scene
-    init();
-
     if (args.benchmark) {
         // Shoot N rays and measure the execution time.
         constexpr int N = 100000;
         const std::string output_filename = 
-            "benchmark_"+std::to_string(N)+'_'+convert_to_string(args.ray_algorithm)+".txt";
+            "benchmark_"+std::filesystem::path(args.chunkPath).stem().string()+'_'
+            +std::to_string(N)+'_'+convert_to_string(args.ray_algorithm)
+            +(args.ray_algorithm == RayAlgorithms::MARCHING ?
+                '_'+std::to_string(args.marching_step) : "") +".txt";
         std::ofstream output(output_filename, std::ios_base::out);
 
         if (args.verbose)
@@ -122,9 +114,9 @@ int main(const int argc, const char** argv) {
             output << ray->getOrigin() << ';' << ray->getDirection() << '|';
             Point ray_pos = ray->getLastTracePoint();
             while (
-                ray_pos.x() >= 0. && ray_pos.y() >= 0. && ray_pos.z() >= 0.
-                && ray_pos.x() < CHUNK_SIDE_SIZE && ray_pos.y() < CHUNK_SIDE_SIZE
-                && ray_pos.z() < CHUNK_SIDE_SIZE
+                ray_pos.x() > 0. && ray_pos.y() > 0. && ray_pos.z() > 0.
+                && ray_pos.x() < CHUNK_SIDE_SIZE-1 && ray_pos.y() < CHUNK_SIDE_SIZE-1
+                && ray_pos.z() < CHUNK_SIDE_SIZE-1
             ) {
                 // Actual benchmark of the algorithm step
                 const auto t_start = std::chrono::high_resolution_clock::now();
@@ -143,6 +135,21 @@ int main(const int argc, const char** argv) {
         if (args.verbose)
             std::cout << "[+] Benchmark written to " << output_filename << '\n';
     } else {
+        // Initialize polyscope
+        polyscope::init();
+        polyscope::options::automaticallyComputeSceneExtents = false;
+        polyscope::state::lengthScale = 5.;
+        polyscope::state::boundingBox = std::tuple<glm::vec3, glm::vec3>{
+            {0., 0., 0.}, {CHUNK_SIDE_SIZE, CHUNK_SIDE_SIZE, CHUNK_SIDE_SIZE}
+        };
+
+        // Build the Mesh
+        if (args.verbose)
+            std::cout << "[+] Creating the blocks into Polyscope's scene\n";
+
+        // Finish setting up the initial Polyscope scene
+        init();
+
         // Specify the callback for the top right UI
         polyscope::state::userCallback = uiCallback;
 

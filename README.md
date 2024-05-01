@@ -50,6 +50,7 @@ Program arguments:
 
 * `--algorithm <algorithm name>`, `-a <algorithm name>`: Selects the algorithm to use for the ray shooting. Algorithm name can be:
     - slabs *(DEFAULT)*
+    - marching
     - bitmask
 
 * `--verbose`, `-v`: Enables verbose output.

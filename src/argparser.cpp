@@ -12,8 +12,9 @@
 /**
  * Lookup table used to convert a RayAlgorithms enum item to string.
  */
-std::array<std::string, 2> ray_algorithms_lookup({
+std::array<std::string, 3> ray_algorithms_lookup({
     "slabs",
+    "marching",
     "bitmask"
 });
 
@@ -29,7 +30,7 @@ std::string convert_to_string(const RayAlgorithms& a) {
 
 ArgParser::ArgParser(const int argc, const char** argv)
 : chunkPath(""), shapesPath(BLOCK_SHAPES_FILE_PATH), section(0),
-  ray_algorithm(RayAlgorithms::SLABS), verbose(false), benchmark(false) {
+  ray_algorithm(RayAlgorithms::SLABS), marching_step(0.1), verbose(false), benchmark(false) {
     // Iterate on the arguments
     for (int i=1; i<argc; ++i) {
         if (!std::strcmp(argv[i], "--verbose")) {
@@ -69,7 +70,7 @@ ArgParser::ArgParser(const int argc, const char** argv)
             try {
                 section = std::stoi(argv[i+1]);
             } catch (std::invalid_argument const& e) {
-                std::cout << "Bad argument provided to --section,-s. Please provide an integer.";
+                std::cout << "Bad argument provided to --section,-s. Please provide an integer.\n";
                 exit(-1);
             }
             ++i;
@@ -84,10 +85,25 @@ ArgParser::ArgParser(const int argc, const char** argv)
             }
             if (!strcmp(argv[i+1], "slabs"))
                 ray_algorithm = RayAlgorithms::SLABS;
+            else if (!strcmp(argv[i+1], "marching"))
+                ray_algorithm = RayAlgorithms::MARCHING;
             else if (!strcmp(argv[i+1], "bitmask"))
                 ray_algorithm = RayAlgorithms::BITMASK;
             else {
                 std::cout << "Bad algorithm name after the --algorithm,-a argument\n";
+                exit(-1);
+            }
+            ++i;
+        } else if (!std::strcmp(argv[i], "--step")) {
+            // --step
+            if (i+1 == argc) {
+                std::cout << "Missing marching step after the --step argument\n";
+                exit(-1);
+            }
+            try {
+                marching_step = std::stod(argv[i+1]);
+            } catch (std::invalid_argument const& e) {
+                std::cout << "Bad argument provided to --step. Please provide a double.\n";
                 exit(-1);
             }
             ++i;

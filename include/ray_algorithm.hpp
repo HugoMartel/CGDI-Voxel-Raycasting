@@ -31,7 +31,31 @@ public:
 class SlabAlgorithm : public RayAlgorithm {
 public:
     /**
-     * TODO explain the algorithm
+     * Classical implementation of the slab algorithm.
+     * @param   ray     Ray to continue
+     * @param   scene   Voxel scene to use to check for intersections
+     * @return  True if an intersection was found
+     */
+    bool computeStep(Ray& ray, const SandboxScene& scene);
+};
+
+/**
+ * Fixed marching implementation of the slab algorithm for a ray shooting AABB intersection problem.
+ */
+class MarchingSlabAlgorithm : public RayAlgorithm {
+private:
+    /**
+     * Step size to use when marching.
+     */
+    double step;
+public:
+    /**
+     * Constructor taking the marching step as a parameter.
+     * @param   d   Double value to put as a step.
+     */
+    MarchingSlabAlgorithm(const double& d) : step(d) {}
+    /**
+     * Same Slab algorithm but does not go to next voxel, rather uses a march step.
      * @param   ray     Ray to continue
      * @param   scene   Voxel scene to use to check for intersections
      * @return  True if an intersection was found

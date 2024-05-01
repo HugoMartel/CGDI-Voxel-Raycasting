@@ -15,8 +15,9 @@
  * Enum storing all the possible algorithm types that can be used in the program.
  */
 enum RayAlgorithms {
-    SLABS   = 0,
-    BITMASK = 1
+    SLABS    = 0,
+    MARCHING = 1,
+    BITMASK  = 2
 };
 
 /**
@@ -59,6 +60,10 @@ public:
      * Selects the ray shooting algorithm to use.
      */
     RayAlgorithms ray_algorithm;
+    /**
+     * Marching step value in case the marching algorithm is chosen.
+     */
+    double marching_step;
     /**
      * Enables verbose output.
      */

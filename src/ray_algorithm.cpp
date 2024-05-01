@@ -92,6 +92,35 @@ bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     return hits_something;
 }
 
+bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
+    Point prev_point = ray.getLastTracePoint();
+    auto next_tile = VoxelPosition(prev_point + ray.getDirection()*1e-5);
+    auto boxes = scene.getVoxel(next_tile).getContents();
+
+    bool hits_something = false;
+    double min_distance = HUGE_VAL;
+    for (auto& box: boxes) {
+        double distance_to_box;
+        Point origin_relative = prev_point - Point(next_tile.x, next_tile.y, next_tile.z);
+        if (rayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
+            hits_something = true;
+            if (distance_to_box < min_distance)
+                min_distance = distance_to_box;
+        }
+    }
+
+    if (hits_something) {
+        // Advance to the AABB that is hit
+        Point new_point(prev_point + ray.getDirection()*min_distance);
+        ray.addTrace(new_point);
+    } else {
+        Point new_point(prev_point + ray.getDirection()*this->step);
+        ray.addTrace(new_point);
+    }
+
+    return hits_something;
+}
+
 bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     const Point ray_pos = ray.getLastTracePoint();
 

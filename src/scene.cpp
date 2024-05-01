@@ -44,10 +44,10 @@ SandboxScene::SandboxScene(const std::string& chunkPath, const std::string& shap
     // voxels[y].resize(16, std::vector<Voxel>());// Z
 
     // Get the AABB of all the blocks in the palette
-    std::cout << "PALETTE\n";//! DEBUG
+    // std::cout << "PALETTE\n";//! DEBUG
     std::vector<std::vector<AABB>> palette_shapes(palette.size(), std::vector<AABB>());
     for (unsigned int i=0; i<palette.size(); ++i) {
-        std::cout << palette[i] << '\n';//! DEBUG
+        // std::cout << palette[i] << '\n';//! DEBUG
         // Find the block in the block shapes JSON corresponding to
         // the current block in the palette
         const Json::Value block = shapesData[palette[i]["Name"].asString()];
@@ -76,7 +76,7 @@ SandboxScene::SandboxScene(const std::string& chunkPath, const std::string& shap
         palette_shapes[i] = str_to_aabbvector(block_shape_str);
         //! DEBUG
         for (size_t j=0; j<palette_shapes[i].size(); ++j) {
-            std::cout << palette_shapes[i][j] << '\n';
+            // std::cout << palette_shapes[i][j] << '\n';
         }
     }
 

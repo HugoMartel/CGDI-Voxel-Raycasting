@@ -10,7 +10,7 @@
 void Ray::reset() {
     std::random_device rd;
     std::default_random_engine gen(rd()); 
-    std::uniform_real_distribution<double> ori_distrib(0, CHUNK_SIDE_SIZE);
+    std::uniform_real_distribution<double> ori_distrib(0, CHUNK_SIDE_SIZE-1);
     std::uniform_real_distribution<double> dir_distrib(-1, 1);
 
     origin.x() = ori_distrib(gen);
