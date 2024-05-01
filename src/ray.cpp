@@ -22,7 +22,7 @@ void Ray::reset(const int seed) {
     direction.x() = dir_distrib(gen);
     direction.y() = dir_distrib(gen);
     direction.z() = dir_distrib(gen);
-    direction /= direction.norm1();
+    direction /= direction.norm2();
 
     clearTrace();
 }
