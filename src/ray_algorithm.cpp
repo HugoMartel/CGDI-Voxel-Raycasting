@@ -94,8 +94,14 @@ bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
 
 bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     Point prev_point = ray.getLastTracePoint();
-    auto next_tile = VoxelPosition(prev_point + ray.getDirection()*1e-5);
-    auto boxes = scene.getVoxel(next_tile).getContents();
+
+    // Unlike the classical algorithm, collision candidates may be in the current tile or in the next one
+    auto current_tile = VoxelPosition(prev_point);
+    auto next_tile = VoxelPosition(prev_point + ray.getDirection()*this->step);
+    auto boxes = scene.getVoxel(current_tile).getContents();
+    if (current_tile != next_tile)
+        for (auto box: scene.getVoxel(next_tile).getContents())
+            boxes.emplace_back(box);
 
     bool hits_something = false;
     double min_distance = HUGE_VAL;
