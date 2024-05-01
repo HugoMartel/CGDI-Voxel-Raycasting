@@ -77,7 +77,7 @@ bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
             double offset = fmod(prev_point[axis], 1);
             if (offset == 0)
                 offset = 1;
-            else if (ray.getDirection()[axis] < 0)
+            else if (ray.getDirection()[axis] > 0)
                 offset = 1 - offset;
 
             // distance: how far along the ray one should move to move by offset on the current axis
