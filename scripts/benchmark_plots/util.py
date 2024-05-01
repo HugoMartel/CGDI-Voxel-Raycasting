@@ -50,7 +50,7 @@ def parse_benchmark(filename:str, out_rays:list[tuple[float,float,float]],
                 if j % 2 == 0:# Trace point
                     out_traces[-1].append(str_to_point(tmp))# create a double tuple by comprehension
                 else:# Computing time in µs
-                    out_times[-1].append(float(tmp[:-2]))# remove µs from the end
+                    out_times[-1].append(float(tmp))
     gc.collect()
 
 

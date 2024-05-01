@@ -4,9 +4,9 @@ SCRIPT_DIR=$(dirname "$0")
 
 # What is run:
 # - Every algorithm
-# - Two scene :
-#   * flat gound and 2 beds
-#   * valley with smaller smalled cubes      
+# - Two scenes:
+#   * flat ground and 2 beds
+#   * valley with some smaller cubes
 # - Marching steps between 0.01:0.5:0.01
 
 # Slabs
