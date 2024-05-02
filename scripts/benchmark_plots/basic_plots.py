@@ -24,9 +24,9 @@ parsed_args = util.parse_arguments(
     argv,
     "== Python tool to generate basic plots from a benchmark file =="
 )
-assert("--in" in parsed_args and "--out" in parsed_args)
-assert(path.isfile(parsed_args["--in"]))
-assert(path.isdir(parsed_args["--out"]))
+assert "--in" in parsed_args and "--out" in parsed_args
+assert path.isfile(parsed_args["--in"])
+assert path.isdir(parsed_args["--out"])
 input_path:str = parsed_args["--in"]
 output_path:str = parsed_args["--out"]
 

@@ -1,20 +1,23 @@
 from os import path
 import gc
+from math import sqrt
 
 class SceneBounds:
-    x:tuple[float,float] = (0., 15.)
-    y:tuple[float,float] = (0., 15.)
-    z:tuple[float,float] = (0., 15.)
+    x:tuple[float,float] = (0., 16.)
+    y:tuple[float,float] = (0., 16.)
+    z:tuple[float,float] = (0., 16.)
 
 
 def point_in_bounds(point:tuple[float,float,float]) -> bool:
-    return (point[0] >= SceneBounds.x[0] and point[0] <= SceneBounds.x[1]
-      and point[1] >= SceneBounds.y[0] and point[1] <= SceneBounds.y[1]
-        and point[2] >= SceneBounds.z[0] and point[2] <= SceneBounds.z[1])
+    return (point[0] >= SceneBounds.x[0] and point[0] < SceneBounds.x[1]
+      and point[1] >= SceneBounds.y[0] and point[1] < SceneBounds.y[1]
+        and point[2] >= SceneBounds.z[0] and point[2] < SceneBounds.z[1])
 
 
+error:float = 1e-5
 def equal_points(p1:tuple[float,float,float], p2:tuple[float,float,float]) -> bool:
-    return abs(p1[0]-p2[0]) < 1e-5 and abs(p1[1]-p2[1]) < 1e-5 and abs(p1[2]-p2[2]) < 1e-5
+    return abs(p1[0]-p2[0]) < error and abs(p1[1]-p2[1]) < error and abs(p1[2]-p2[2]) < error
+    # return sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2 + (p1[2]-p2[2])**2) < error
 
 
 def str_to_point(s:str) -> tuple[float,float,float]:

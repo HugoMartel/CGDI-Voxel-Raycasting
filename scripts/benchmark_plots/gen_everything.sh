@@ -1,7 +1,7 @@
 #!/bin/sh
 
 SCRIPT_FOLDER=$(dirname "$0")
-N="100000"
+N="10000"
 
 mkdir -p "$SCRIPT_FOLDER/output/"
 
