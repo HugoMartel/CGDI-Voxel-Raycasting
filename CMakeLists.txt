@@ -10,12 +10,13 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Compiling options
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 if (CMAKE_BUILD_TYPE EQUAL Debug)
-    set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -O1 -g")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og -g")
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -O3")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
 # Load scripts to automatically fetch dependencies

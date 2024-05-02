@@ -46,7 +46,7 @@ public:
      * @param   blocksPath      File location of all the blocks AABB and properties.
      * @param   chosen_section  Section number to load.
      */
-    SandboxScene(const std::string& chunkPath, const std::string& blocksPath,
+    SandboxScene(const std::string& chunkPath, const std::string& shapesPath,
                  const int chosen_section);
 
     // Methods
@@ -56,6 +56,15 @@ public:
      * @return  Voxel object found at that given position.
      */
     inline Voxel getVoxel(const VoxelPosition& position) const {
+        if (position.x < 0 || position.y < 0 || position.z < 0
+            || position.x > CHUNK_SIDE_SIZE-1 || position.y > CHUNK_SIDE_SIZE-1
+            || position.z > CHUNK_SIDE_SIZE-1 ) {//! DEBUG
+            std::cerr << "ILLEGAL VOXEL ACCESSED\n"
+                      << position.x << ','
+                      << position.y << ','
+                      << position.z << ','
+                      << '\n';
+        }
         return voxels[position.y][position.z][position.x];
     }
     /**
@@ -65,6 +74,15 @@ public:
      * @return  Reference to the Voxel object found at that given position.
      */
     inline Voxel& getVoxel(const VoxelPosition& position) {
+        if (position.x < 0 || position.y < 0 || position.z < 0
+            || position.x > CHUNK_SIDE_SIZE-1 || position.y > CHUNK_SIDE_SIZE-1
+            || position.z > CHUNK_SIDE_SIZE-1 ) {//! DEBUG
+            std::cerr << "ILLEGAL VOXEL ACCESSED\n"
+                      << position.x << ','
+                      << position.y << ','
+                      << position.z << ','
+                      << '\n';
+        }
         return voxels[position.y][position.z][position.x];
     }
     /**

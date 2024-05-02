@@ -54,9 +54,9 @@ void uiCallback() {
     if (raystep_pressed) {
         const Point ray_pos = ray->getLastTracePoint();
         if (
-            ray_pos.x() > 0. && ray_pos.y() > 0. && ray_pos.z() > 0.
-            && ray_pos.x() < CHUNK_SIDE_SIZE-1 && ray_pos.y() < CHUNK_SIDE_SIZE-1
-            && ray_pos.z() < CHUNK_SIDE_SIZE-1
+            ray_pos.x() >= 0. && ray_pos.y() >= 0. && ray_pos.z() >= 0.
+            && ray_pos.x() < CHUNK_SIDE_SIZE && ray_pos.y() < CHUNK_SIDE_SIZE
+            && ray_pos.z() < CHUNK_SIDE_SIZE
         ) {
             ray_algorithm->computeStep(*ray, *scene);
             draw();
@@ -98,7 +98,7 @@ int main(const int argc, const char** argv) {
 
     if (args.benchmark) {
         // Shoot N rays and measure the execution time.
-        constexpr int N = 100000;
+        constexpr int N = 10000;
         constexpr int initial_seed = 1;
         const std::string output_filename =
             "benchmark_"+std::filesystem::path(args.chunkPath).stem().string()+'_'
@@ -114,11 +114,7 @@ int main(const int argc, const char** argv) {
             ray->reset(initial_seed+i);
             Point ray_pos = ray->getOrigin();
             output << ray_pos << ';' << ray->getDirection() << '|';
-            while (
-                ray_pos.x() > 0. && ray_pos.y() > 0. && ray_pos.z() > 0.
-                && ray_pos.x() < CHUNK_SIDE_SIZE-1 && ray_pos.y() < CHUNK_SIDE_SIZE-1
-                && ray_pos.z() < CHUNK_SIDE_SIZE-1
-            ) {
+            while (inBounds(ray_pos)) {
                 // Actual benchmark of the algorithm step
                 const auto t_start = std::chrono::high_resolution_clock::now();
                 const bool found_inter = ray_algorithm->computeStep(*ray, *scene);
