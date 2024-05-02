@@ -2,6 +2,7 @@
  * @file ray_algorithm.cpp
  */
 #include "ray_algorithm.hpp"
+#include "util.hpp"
 
 /**
  * Helper function for slab algorithm
@@ -51,6 +52,8 @@ bool rayHitsBox(const Point& origin, const Point& direction, const AABB& box, do
 bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     Point prev_point = ray.getLastTracePoint();
     auto next_tile = VoxelPosition(prev_point + ray.getDirection()*1e-5);
+    if (!inBounds(next_tile))
+        return false;
     auto boxes = scene.getVoxel(next_tile).getContents();
 
     bool hits_something = false;
@@ -99,7 +102,7 @@ bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     auto current_tile = VoxelPosition(prev_point);
     auto next_tile = VoxelPosition(prev_point + ray.getDirection()*this->step);
     auto boxes = scene.getVoxel(current_tile).getContents();
-    if (current_tile != next_tile)
+    if (current_tile != next_tile && inBounds(next_tile))
         for (auto box: scene.getVoxel(next_tile).getContents())
             boxes.emplace_back(box);
 
