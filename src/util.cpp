@@ -134,12 +134,12 @@ void updateRayLine(const Ray& ray, const std::string& name) {
 }
 
 bool inBounds(const VoxelPosition& p) {
-    return p.x < 0 || p.y < 0 || p.z < 0 || p.x > CHUNK_SIDE_SIZE-1 
-        || p.y > CHUNK_SIDE_SIZE-1 || p.z > CHUNK_SIDE_SIZE-1;
+    return p.x >= 0 && p.y >= 0 && p.z >= 0
+        && p.x < CHUNK_SIDE_SIZE && p.y < CHUNK_SIDE_SIZE && p.z < CHUNK_SIDE_SIZE;
 }
 
 bool inBounds(const Point& p) {
-    return p.x() < 0. || p.y() < 0. || p.z() < 0. || p.x() >= CHUNK_SIDE_SIZE
-        || p.y() >= CHUNK_SIDE_SIZE || p.z() >= CHUNK_SIDE_SIZE;
+    return p.x() >= 0. && p.y() >= 0. && p.z() >= 0. && p.x() < CHUNK_SIDE_SIZE
+        && p.y() < CHUNK_SIDE_SIZE && p.z() < CHUNK_SIDE_SIZE;
 }
 
