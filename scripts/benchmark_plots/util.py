@@ -9,9 +9,9 @@ class SceneBounds:
 
 
 def point_in_bounds(point:tuple[float,float,float]) -> bool:
-    return (point[0] >= SceneBounds.x[0] and point[0] < SceneBounds.x[1]
-      and point[1] >= SceneBounds.y[0] and point[1] < SceneBounds.y[1]
-        and point[2] >= SceneBounds.z[0] and point[2] < SceneBounds.z[1])
+    return (point[0] > SceneBounds.x[0] and point[0] < SceneBounds.x[1]
+      and point[1] > SceneBounds.y[0] and point[1] < SceneBounds.y[1]
+        and point[2] > SceneBounds.z[0] and point[2] < SceneBounds.z[1])
 
 
 error:float = 1e-5

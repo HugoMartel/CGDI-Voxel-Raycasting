@@ -75,9 +75,14 @@ hitting_rays_counts = [ 0 for _ in range(len(steps_values)) ]
 
 for step_index in range(len(steps_values)):
     for i,trace in enumerate(traces_marching[step_index]):
-        if util.point_in_bounds(trace[-1]) and not util.point_in_bounds(traces_slabs[i][-1]):
-            print(f"Intersection found for ray {i} yet marching algorithm stops")
-            exit(71)
+        # if util.point_in_bounds(trace[-1]) and not util.point_in_bounds(traces_slabs[i][-1]):
+        #     print(f"No intersection found for ray {i} yet marching algorithm stops")
+        #     print(f"Ray {i} missed an intersection at step {steps_values[step_index]}")
+        #     print(f"Ray: {rays[i]}")
+        #     print(trace)
+        #     print("---")
+        #     print(traces_slabs[i])
+        #     exit(71)
 
         if not util.point_in_bounds(traces_slabs[i][-1]):
             continue

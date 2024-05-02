@@ -38,14 +38,4 @@ void createRayLine(const Ray& ray, const std::string& name);
  */
 void updateRayLine(const Ray& ray, const std::string& name);
 
-/**
- * TODO
- */
-bool inBounds(const VoxelPosition& p);
-
-/**
- * TODO
- */
-bool inBounds(const Point& p);
-
 #endif//__RAYCAST_UTIL__

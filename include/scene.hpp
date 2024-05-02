@@ -56,15 +56,6 @@ public:
      * @return  Voxel object found at that given position.
      */
     inline Voxel getVoxel(const VoxelPosition& position) const {
-        if (position.x < 0 || position.y < 0 || position.z < 0
-            || position.x > CHUNK_SIDE_SIZE-1 || position.y > CHUNK_SIDE_SIZE-1
-            || position.z > CHUNK_SIDE_SIZE-1 ) {//! DEBUG
-            std::cerr << "ILLEGAL VOXEL ACCESSED\n"
-                      << position.x << ','
-                      << position.y << ','
-                      << position.z << ','
-                      << '\n';
-        }
         return voxels[position.y][position.z][position.x];
     }
     /**
@@ -74,15 +65,6 @@ public:
      * @return  Reference to the Voxel object found at that given position.
      */
     inline Voxel& getVoxel(const VoxelPosition& position) {
-        if (position.x < 0 || position.y < 0 || position.z < 0
-            || position.x > CHUNK_SIDE_SIZE-1 || position.y > CHUNK_SIDE_SIZE-1
-            || position.z > CHUNK_SIDE_SIZE-1 ) {//! DEBUG
-            std::cerr << "ILLEGAL VOXEL ACCESSED\n"
-                      << position.x << ','
-                      << position.y << ','
-                      << position.z << ','
-                      << '\n';
-        }
         return voxels[position.y][position.z][position.x];
     }
     /**
@@ -90,8 +72,30 @@ public:
      * @param   position    Position of the voxel to set.
      * @param   voxel       Voxel to set.
      */
-    void setVoxel(const VoxelPosition& position, const Voxel& voxel) {
+    inline void setVoxel(const VoxelPosition& position, const Voxel& voxel) {
         voxels[position.y][position.z][position.x] = voxel;
+    }
+    /**
+     * Get the scene's side size.
+     * @note We assume the scene is a cube in this context.
+     * @return  Unsigned integer.
+     */
+    inline int side_size() const {
+        return (int)voxels.size();
+    }
+    /**
+     * TODO
+     */
+    inline bool inBounds(const VoxelPosition& p) const {
+        return p.x >= 0 && p.y >= 0 && p.z >= 0
+            && p.x < (int)voxels.size() && p.y < (int)voxels.size() && p.z < (int)voxels.size();
+    }
+    /**
+     * TODO
+     */
+    inline bool inBounds(const Point& p) const {
+        return p.x() > 0. && p.y() > 0. && p.z() > 0.
+            && p.x() < voxels.size() && p.y() < voxels.size() && p.z() < voxels.size();
     }
 };
 

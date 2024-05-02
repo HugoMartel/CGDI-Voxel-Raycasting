@@ -53,11 +53,7 @@ void uiCallback() {
     // Buttons callbacks
     if (raystep_pressed) {
         const Point ray_pos = ray->getLastTracePoint();
-        if (
-            ray_pos.x() >= 0. && ray_pos.y() >= 0. && ray_pos.z() >= 0.
-            && ray_pos.x() < CHUNK_SIDE_SIZE && ray_pos.y() < CHUNK_SIDE_SIZE
-            && ray_pos.z() < CHUNK_SIDE_SIZE
-        ) {
+        if (scene->inBounds(ray_pos)) {
             ray_algorithm->computeStep(*ray, *scene);
             draw();
         }
@@ -109,24 +105,26 @@ int main(const int argc, const char** argv) {
 
         if (args.verbose)
             std::cout << "[+] Starting the Benchmark\n";
+
+        // Shoot N rays
         for (int i=0; i<N; ++i) {
             // Shoot a ray until it intersects or goes out of the scene
             ray->reset(initial_seed+i);
             Point ray_pos = ray->getOrigin();
             output << ray_pos << ';' << ray->getDirection() << '|';
-            while (inBounds(ray_pos)) {
+
+            // While the ray is in bounds and has not found an intersection
+            bool found_inter = false;
+            while (scene->inBounds(ray_pos) && !found_inter) {
                 // Actual benchmark of the algorithm step
                 const auto t_start = std::chrono::high_resolution_clock::now();
-                const bool found_inter = ray_algorithm->computeStep(*ray, *scene);
+                found_inter = ray_algorithm->computeStep(*ray, *scene);
                 const auto t_end = std::chrono::high_resolution_clock::now();
 
                 // Write results to file
                 ray_pos = ray->getLastTracePoint();
                 output << ray_pos << ';';
                 output << std::chrono::duration<double, std::chrono::microseconds::period>(t_end - t_start).count() << ';';
-
-                if (found_inter)
-                    break;
             }
             output << '\n';
         }

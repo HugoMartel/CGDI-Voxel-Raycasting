@@ -52,7 +52,7 @@ bool rayHitsBox(const Point& origin, const Point& direction, const AABB& box, do
 bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     Point prev_point = ray.getLastTracePoint();
     auto next_tile = VoxelPosition(prev_point + ray.getDirection()*1e-5);
-    if (!inBounds(next_tile))
+    if (!scene.inBounds(next_tile))
         return false;
     auto boxes = scene.getVoxel(next_tile).getContents();
 
@@ -116,7 +116,7 @@ bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     }
 
     auto next_tile = VoxelPosition(prev_point + ray.getDirection()*this->step);
-    if (!hits_something && current_tile != next_tile && inBounds(next_tile)) {
+    if (!hits_something && current_tile != next_tile && scene.inBounds(next_tile)) {
         auto next_boxes = scene.getVoxel(next_tile).getContents();
         for (auto& box: next_boxes) {
             double distance_to_box;
@@ -148,7 +148,7 @@ bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
      * TODO: REMOVE THIS CODE
      */
     // this is only used to make sure that we are not right on an edge of a voxel
-    Voxel curr_voxel = scene.getVoxel(VoxelPosition(ray_pos + (ray.getDirection()*1e5)));
+    Voxel curr_voxel = scene.getVoxel(VoxelPosition(ray_pos + (ray.getDirection()*1e-5)));
 
     for (const AABB& box : curr_voxel.getContents()) {
         std::cout << "CHECKING: " << box << '\n';//! DEBUG

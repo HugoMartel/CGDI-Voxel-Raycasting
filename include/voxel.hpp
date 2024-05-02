@@ -28,15 +28,7 @@ public:
      * @param   y   Vertical position.
      * @param   z   Depth position
      */
-    VoxelPosition(const int x, const int y, const int z) : x(x), y(y), z(z) {
-        if (x < 0. || y < 0. || z < 0. || x >= 16. || y >= 16. || z >= 16.) {//! DEBUG
-            std::cerr << "ILLEGAL VOXEL ACCESSED\n"
-                      << x << ','
-                      << y << ','
-                      << z << ','
-                      << '\n';
-        }
-    }
+    VoxelPosition(const int x, const int y, const int z) : x(x), y(y), z(z) {}
     /**
      * Construct a VoxelPosition from an std::array of integers.
      * @param   xyz     Array storing the 3 coordinates in this order x, y and z.
@@ -46,15 +38,7 @@ public:
      * Construct a VoxelPosition from a Point casting float coordinates to int.
      * @param   p       Point to extract the coordinates from.
      */
-    VoxelPosition(const Point& p) : x((int)p.x()), y((int)p.y()), z((int)p.z()) {
-        if (p.x() < 0. || p.y() < 0. || p.z() < 0. || p.x() >= 16. || p.y() >= 16. || p.z() >= 16. ) {//! DEBUG
-            std::cerr << "ILLEGAL VOXEL ACCESSED\n"
-                      << p.x() << ','
-                      << p.y() << ','
-                      << p.z() << ','
-                      << '\n';
-        }
-    }
+    VoxelPosition(const Point& p) : x((int)p.x()), y((int)p.y()), z((int)p.z()) {}
 
     // Operators
     /**
