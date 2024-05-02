@@ -100,21 +100,32 @@ bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
 
     // Unlike the classical algorithm, collision candidates may be in the current tile or in the next one
     auto current_tile = VoxelPosition(prev_point);
-    auto next_tile = VoxelPosition(prev_point + ray.getDirection()*this->step);
     auto boxes = scene.getVoxel(current_tile).getContents();
-    if (current_tile != next_tile && inBounds(next_tile))
-        for (auto box: scene.getVoxel(next_tile).getContents())
-            boxes.emplace_back(box);
 
     bool hits_something = false;
     double min_distance = HUGE_VAL;
+
     for (auto& box: boxes) {
         double distance_to_box;
-        Point origin_relative = prev_point - Point(next_tile.x, next_tile.y, next_tile.z);
+        Point origin_relative = prev_point - Point(current_tile.x, current_tile.y, current_tile.z);
         if (rayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
             hits_something = true;
             if (distance_to_box < min_distance)
                 min_distance = distance_to_box;
+        }
+    }
+
+    auto next_tile = VoxelPosition(prev_point + ray.getDirection()*this->step);
+    if (!hits_something && current_tile != next_tile && inBounds(next_tile)) {
+        auto next_boxes = scene.getVoxel(next_tile).getContents();
+        for (auto& box: next_boxes) {
+            double distance_to_box;
+            Point origin_relative = prev_point - Point(next_tile.x, next_tile.y, next_tile.z);
+            if (rayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
+                hits_something = true;
+                if (distance_to_box < min_distance)
+                    min_distance = distance_to_box;
+            }
         }
     }
 
