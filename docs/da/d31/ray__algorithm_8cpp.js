@@ -1,4 +1,5 @@
 var ray__algorithm_8cpp =
 [
-    [ "rayHitsBox", "da/d31/ray__algorithm_8cpp.html#aa9f4a5f6a8b16d45f0b9abea7ae62cec", null ]
+    [ "bitmaskRayHitsBox", "da/d31/ray__algorithm_8cpp.html#a15752e7d1a70a56d189898dc4e078a4b", null ],
+    [ "slabsRayHitsBox", "da/d31/ray__algorithm_8cpp.html#a0a726e765d1b5ed816b31c83de5eb5b3", null ]
 ];

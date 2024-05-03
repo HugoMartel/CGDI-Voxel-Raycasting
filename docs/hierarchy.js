@@ -6,6 +6,8 @@ var hierarchy =
     [ "Ray", "d9/dce/classRay.html", null ],
     [ "RayAlgorithm", "d4/d8e/classRayAlgorithm.html", [
       [ "BitmaskAlgorithm", "d5/dcb/classBitmaskAlgorithm.html", null ],
+      [ "MarchingBitmaskAlgorithm", "d3/df6/classMarchingBitmaskAlgorithm.html", null ],
+      [ "MarchingSlabAlgorithm", "dc/d25/classMarchingSlabAlgorithm.html", null ],
       [ "SlabAlgorithm", "d9/dca/classSlabAlgorithm.html", null ]
     ] ],
     [ "SandboxScene", "dc/d91/classSandboxScene.html", null ],

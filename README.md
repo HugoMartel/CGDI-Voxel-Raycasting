@@ -50,8 +50,13 @@ Program arguments:
 
 * `--algorithm <algorithm name>`, `-a <algorithm name>`: Selects the algorithm to use for the ray shooting. Algorithm name can be:
     - slabs *(DEFAULT)*
-    - marching
+    - slabs_marching
     - bitmask
+    - bitmask_marching
+
+* `--step <float>`: Sets the fixed step size for the selected marching algorithm (Usually between 0.01 and 0.5).
+
+* `--output <folder path>`, `-o <folder path>`: Folder to output to in case of a benchmark.
 
 * `--verbose`, `-v`: Enables verbose output.
 

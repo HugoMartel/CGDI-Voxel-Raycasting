@@ -7,10 +7,9 @@ var searchData=
   ['ray_5falgorithm_4',['ray_algorithm',['../d8/da9/structArgParser.html#a9e55e76d850c60863d5dd41b6312c63f',1,'ArgParser']]],
   ['ray_5falgorithm_2ecpp_5',['ray_algorithm.cpp',['../da/d31/ray__algorithm_8cpp.html',1,'']]],
   ['ray_5falgorithm_2ehpp_6',['ray_algorithm.hpp',['../d5/db5/ray__algorithm_8hpp.html',1,'']]],
-  ['ray_5falgorithms_5flookup_7',['ray_algorithms_lookup',['../d2/df1/argparser_8cpp.html#ac18c531195f5c95d332f7cccb0c4cbe0',1,'argparser.cpp']]],
+  ['ray_5falgorithms_5flookup_7',['ray_algorithms_lookup',['../d2/df1/argparser_8cpp.html#a931b88be39f13285721da1be92e5b68a',1,'argparser.cpp']]],
   ['rayalgorithm_8',['RayAlgorithm',['../d4/d8e/classRayAlgorithm.html',1,'']]],
   ['rayalgorithms_9',['RayAlgorithms',['../d1/d4f/argparser_8hpp.html#a7e778301f43c87e175a0646c19d3da76',1,'argparser.hpp']]],
   ['raycasting_10',['CGDI Voxel Raycasting',['../index.html',1,'']]],
-  ['rayhitsbox_11',['rayHitsBox',['../da/d31/ray__algorithm_8cpp.html#aa9f4a5f6a8b16d45f0b9abea7ae62cec',1,'ray_algorithm.cpp']]],
-  ['reset_12',['reset',['../d9/dce/classRay.html#a268b10e7de9eb55ad20827a6fba0d031',1,'Ray']]]
+  ['reset_11',['reset',['../d9/dce/classRay.html#a9879b80be7cfdd0dc25007ea231af953',1,'Ray']]]
 ];

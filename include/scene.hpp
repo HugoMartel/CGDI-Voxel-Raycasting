@@ -43,7 +43,7 @@ public:
     /**
      * Sandbox scene constructor that takes a chunk JSON file as input and contructs a scene from it.
      * @param   chunkPath       File location of the chunk JSON file.
-     * @param   blocksPath      File location of all the blocks AABB and properties.
+     * @param   shapesPath      File location of all the blocks' AABB and properties.
      * @param   chosen_section  Section number to load.
      */
     SandboxScene(const std::string& chunkPath, const std::string& shapesPath,

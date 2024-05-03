@@ -9,5 +9,5 @@ var classRay =
     [ "getTrace", "d9/dce/classRay.html#a43334601b85f519742df2b0e7710e4d6", null ],
     [ "getTrace", "d9/dce/classRay.html#a4fb8bf628cd3a26db0400ff497fa7ed8", null ],
     [ "getVoxelPosition", "d9/dce/classRay.html#a4efe750df3a607d02e29483ccd680344", null ],
-    [ "reset", "d9/dce/classRay.html#a268b10e7de9eb55ad20827a6fba0d031", null ]
+    [ "reset", "d9/dce/classRay.html#a9879b80be7cfdd0dc25007ea231af953", null ]
 ];

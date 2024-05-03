@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['sandboxscene_0',['SandboxScene',['../dc/d91/classSandboxScene.html',1,'']]],
-  ['slabalgorithm_1',['SlabAlgorithm',['../d9/dca/classSlabAlgorithm.html',1,'']]]
+  ['ray_0',['Ray',['../d9/dce/classRay.html',1,'']]],
+  ['rayalgorithm_1',['RayAlgorithm',['../d4/d8e/classRayAlgorithm.html',1,'']]]
 ];

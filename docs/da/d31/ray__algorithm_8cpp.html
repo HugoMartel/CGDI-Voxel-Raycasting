@@ -98,23 +98,60 @@ $(function(){initNavTree('da/d31/ray__algorithm_8cpp.html','../../'); initResiza
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d5/db5/ray__algorithm_8hpp_source.html">ray_algorithm.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d3f/util_8hpp_source.html">util.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../da/d31/ray__algorithm_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa9f4a5f6a8b16d45f0b9abea7ae62cec" id="r_aa9f4a5f6a8b16d45f0b9abea7ae62cec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9f4a5f6a8b16d45f0b9abea7ae62cec">rayHitsBox</a> (<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;origin, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;direction, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">box</a>, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">double</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">distance</a>)</td></tr>
-<tr class="separator:aa9f4a5f6a8b16d45f0b9abea7ae62cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a726e765d1b5ed816b31c83de5eb5b3" id="r_a0a726e765d1b5ed816b31c83de5eb5b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a726e765d1b5ed816b31c83de5eb5b3">slabsRayHitsBox</a> (<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;origin, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;direction, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">box</a>, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">double</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">distance</a>)</td></tr>
+<tr class="separator:a0a726e765d1b5ed816b31c83de5eb5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15752e7d1a70a56d189898dc4e078a4b" id="r_a15752e7d1a70a56d189898dc4e078a4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15752e7d1a70a56d189898dc4e078a4b">bitmaskRayHitsBox</a> (<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">new_pos</a>, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;direction, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">box</a>, <a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">double</a> &amp;<a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">distance</a>)</td></tr>
+<tr class="separator:a15752e7d1a70a56d189898dc4e078a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aa9f4a5f6a8b16d45f0b9abea7ae62cec" name="aa9f4a5f6a8b16d45f0b9abea7ae62cec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9f4a5f6a8b16d45f0b9abea7ae62cec">&#9670;&#160;</a></span>rayHitsBox()</h2>
+<a id="a15752e7d1a70a56d189898dc4e078a4b" name="a15752e7d1a70a56d189898dc4e078a4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15752e7d1a70a56d189898dc4e078a4b">&#9670;&#160;</a></span>bitmaskRayHitsBox()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">bool</a> rayHitsBox </td>
+          <td class="memname"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">bool</a> bitmaskRayHitsBox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>new_pos</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>direction</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>box</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">double</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>distance</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>TODO </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d31/ray__algorithm_8cpp_source.html#l00147">147</a> of file <a class="el" href="../../da/d31/ray__algorithm_8cpp_source.html">ray_algorithm.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0a726e765d1b5ed816b31c83de5eb5b3" name="a0a726e765d1b5ed816b31c83de5eb5b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a726e765d1b5ed816b31c83de5eb5b3">&#9670;&#160;</a></span>slabsRayHitsBox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">bool</a> slabsRayHitsBox </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d5/d9b/scene_8hpp.html#aca2a13830fe6ecfd43297ad6e4fa13f9">const</a> <a class="el" href="../../d8/d43/structPoint.html">Point</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>origin</em>, </span></td>
         </tr>
@@ -137,7 +174,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Helper function for slab algorithm Checks if the ray (origin/direction) hits the box, and if so edits distance accordingly Because an <a class="el" href="../../d9/d4d/structAABB.html">AABB</a> has coordinates given in the frame of reference of the first vertex, the origin too should be expressed locally in that frame </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d31/ray__algorithm_8cpp_source.html#l00012">12</a> of file <a class="el" href="../../da/d31/ray__algorithm_8cpp_source.html">ray_algorithm.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d31/ray__algorithm_8cpp_source.html#l00013">13</a> of file <a class="el" href="../../da/d31/ray__algorithm_8cpp_source.html">ray_algorithm.cpp</a>.</p>
 
 </div>
 </div>

@@ -123,9 +123,13 @@ Usage</h1>
 <li><code>--section &lt;section number&gt;</code>, <code>-s &lt;section number&gt;</code>: Section of the chunk to extract, defaults to 0 if not provided.</li>
 <li><code>--algorithm &lt;algorithm name&gt;</code>, <code>-a &lt;algorithm name&gt;</code>: Selects the algorithm to use for the ray shooting. Algorithm name can be:<ul>
 <li>slabs *(DEFAULT)*</li>
+<li>slabs_marching</li>
 <li>bitmask</li>
+<li>bitmask_marching</li>
 </ul>
 </li>
+<li><code>--step &lt;float&gt;</code>: Sets the fixed step size for the selected marching algorithm (Usually between 0.01 and 0.5).</li>
+<li><code>--output &lt;folder path&gt;</code>, <code>-o &lt;folder path&gt;</code>: Folder to output to in case of a benchmark.</li>
 <li><code>--verbose</code>, <code>-v</code>: Enables verbose output.</li>
 <li><code>--benchmark</code>: Enables benchmark mode.</li>
 </ul>
