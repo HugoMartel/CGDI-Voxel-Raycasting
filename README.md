@@ -38,6 +38,18 @@ Generating a benchmark file:
 ./raycast -c ../voxels/test_world_chunk.json -s 4 --algorithm slabs --benchmark --verbose
 ```
 
+Running all the benchmarks and generating the plots (takes around 15mn)
+```bash
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j4
+cd ../scripts
+./run_benchmarks.sh
+cd benchmark_plots
+./gen_everything.sh
+```
+
 Program arguments:
 
 **required**
