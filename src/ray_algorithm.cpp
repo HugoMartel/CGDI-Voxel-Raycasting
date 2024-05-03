@@ -142,63 +142,40 @@ bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
 }
 
 bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
+    // Get the last trace point and get the associated voxel to test
     const Point ray_pos = ray.getLastTracePoint();
+    VoxelPosition vp(ray_pos + (ray.getDirection()*1e-5));
+    Voxel curr_voxel = scene.getVoxel(vp);
 
-    /* GLSL version provided in the paper
-     * TODO: REMOVE THIS CODE
-     */
-    // this is only used to make sure that we are not right on an edge of a voxel
-    Voxel curr_voxel = scene.getVoxel(VoxelPosition(ray_pos + (ray.getDirection()*1e-5)));
+    // Only keep the closest hit
+    bool hits_something = false;
+    double min_distance = HUGE_VAL;
 
+    // Check all the AABBs of the current voxel to check for intersection
     for (const AABB& box : curr_voxel.getContents()) {
-        std::cout << "CHECKING: " << box << '\n';//! DEBUG
         const Point radius = box.radius();
 
         // ray.origin = ray.origin - box.center;
-        // Point new_pos = ray_pos - box.center();
-        Point new_pos = Point(ray_pos.x() - (int)ray_pos.x(),
-                              ray_pos.y() - (int)ray_pos.y(),
-                              ray_pos.z() - (int)ray_pos.z()) - radius;
-        std::cout << "NEW_POS: " << new_pos << '\n';
+        Point new_pos = ray_pos - (box.center() + Point(vp.x, vp.y, vp.z));
 
-        // if (oriented) {
-        //     ray.dir *= box.rot;
-        //     ray.origin *= box.rot;
-        // }
-
-        // float winding =
-        //     canStartInBox && (max(abs(ray.origin) * box.invRadius) < 1.0)
-        //     ? -1 : 1;
-
-        // vec3 sgn = -sign(ray.dir);
-        Point sgn;
-        sgn.x() = ray.getDirection().x() >= 0 ? -1 : 1;
-        sgn.y() = ray.getDirection().y() >= 0 ? -1 : 1;
-        sgn.z() = ray.getDirection().z() >= 0 ? -1 : 1;
+        // Equivalent of glm::sign
+        Point sgn(
+            ray.getDirection().x() >= 0 ? -1 : 1,
+            ray.getDirection().y() >= 0 ? -1 : 1,
+            ray.getDirection().z() >= 0 ? -1 : 1
+        );
 
         // Distance to plane
-        // vec3 d = box.radius * winding * sgn - ray.origin;
-        Point d = - new_pos;
-        d.x() += radius.x() * sgn.x();
-        d.y() += radius.y() * sgn.y();
-        d.z() += radius.z() * sgn.z();
+        Point d(
+            radius.x() * sgn.x() - new_pos.x(),
+            radius.y() * sgn.y() - new_pos.y(),
+            radius.z() * sgn.z() - new_pos.z()
+        );
 
-        std::cout << "d: " << d << '\n';//! DEBUG
-
-        // if (oriented)
-        //     d /= ray.dir;
-        // else
-        //     d *= _invRayDir;
         d.x() /= ray.getDirection().x();
         d.y() /= ray.getDirection().y();
         d.z() /= ray.getDirection().z();
 
-        std::cout << "d: " << d << '\n';//! DEBUG
-
-    // # define TEST(U, VW) (d.U >= 0.0) && \
-                            all(lessThan(abs(ray.origin.VW + ray.dir.VW * d.U), box.radius.VW))
-
-    //     bvec3 test = bvec3(TEST(x, yz), TEST(y, zx), TEST(z, xy));
         bool test_x =
             (d.x() >= 0.)
             && (std::abs(new_pos.y() + ray.getDirection().y() * d.x()) <= radius.y())
@@ -211,29 +188,44 @@ bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
             (d.z() >= 0.)
                 && (std::abs(new_pos.x() + ray.getDirection().x() * d.z()) <= radius.x())
                 && (std::abs(new_pos.y() + ray.getDirection().y() * d.z()) <= radius.y());
-    //     sgn = test.x
-    //         ? vec3(sgn.x,0,0) : (test.y ? vec3(0,sgn.y,0) : vec3(0,0,test.z ? sgn.z:0));
+
         sgn = test_x ? Point(sgn.x(),0.,0.)
             : (test_y ? Point(0.,sgn.y(),0.)
                 : Point(0.,0., test_z ? sgn.z() : 0));
-        std::cout << "SGN: " << sgn << '\n';//! DEBUG
 
-    // # undef TEST
+        double distance = (sgn.x() != 0) ? d.x() : ((sgn.y() != 0) ? d.y() : d.z());
+        // normal = sgn;
 
-        // distance = (sgn.x != 0) ? d.x : ((sgn.y != 0) ? d.y : d.z);
-        // normal = oriented ? (box.rot * sgn) : sgn;
-
-        // if ((sgn.x() != 0.) || (sgn.y() != 0.) || (sgn.z() != 0.))
         if (test_x || test_y || test_z) {
-            ray.addTrace(ray_pos);
-            return true;
+            if (distance < min_distance)
+                min_distance = distance;
+            hits_something = true;
         }
     }
 
-    // No AABB hit, simply go to the next voxel
-    Point new_point(ray_pos + ray.getDirection());
-    std::cout << "NEW RAY TRACE POINT: " << new_point << '\n';//! DEBUG
-    ray.addTrace(new_point);
-    return false;
+    if (hits_something) {
+        Point new_point(ray_pos + ray.getDirection()*min_distance);
+        ray.addTrace(new_point);
+        return true;
+    } else {
+        // No AABB hit, go to the next voxel
+        double distance_to_next_voxel = HUGE_VAL;
+        for (int axis=0; axis<3; ++axis) {
+            // offset: how far along the current axis one should move to change tile
+            double offset = fmod(ray_pos[axis], 1);
+            if (offset == 0)
+                offset = 1;
+            else if (ray.getDirection()[axis] > 0)
+                offset = 1 - offset;
+
+            // distance: how far along the ray one should move to move by offset on the current axis
+            double distance = offset / std::abs(ray.getDirection()[axis]);
+            if (distance < distance_to_next_voxel)
+                distance_to_next_voxel = distance;
+        }
+        Point new_point(ray_pos + ray.getDirection()*distance_to_next_voxel);
+        ray.addTrace(new_point);
+        return false;
+    }
 }
 

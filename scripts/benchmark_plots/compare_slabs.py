@@ -1,6 +1,7 @@
 from sys import argv
 from os import path
 import resource
+import gc
 import numpy as np
 import matplotlib
 matplotlib.use('PDF')
@@ -67,9 +68,11 @@ print(f"Loaded {prefix_path}slabs.txt")
 assert rays == rays_slabs
 del rays_slabs
 
+
 ################################################
-#                LOOK FOR MISSES               #
+#             PLOT MARCHING ERRORS             #
 ################################################
+## DATA
 marching_errors_counts = [ 0 for _ in range(len(steps_values)) ]
 hitting_rays_counts = [ 0 for _ in range(len(steps_values)) ]
 
@@ -97,9 +100,7 @@ for step_index in range(len(steps_values)):
             # print("---")
             # print(traces_slabs[i])
 
-################################################
-#             PLOT MARCHING ERRORS             #
-################################################
+## FIGURE
 fig = plt.figure(figsize=(16,9))
 ax = fig.add_subplot()
 ax.plot(steps_values, [ marching_errors_counts[i] / hitting_rays_counts[i] for i in range(len(steps_values)) ], 'o-')
@@ -109,11 +110,126 @@ ax.set_ylabel('Ratio of intersection misses over all ray hits')
 ax.grid(True)
 #ax.set_ylim(0, max(y)*1.1)
 #ax.legend()
-ax.set_title(
-    "Marching step errors function to step size",
-    loc='left',
-    weight='bold'
-)
-fig.savefig(f"{output_path}/{path.basename(prefix_path)}-marching_errors.pdf", dpi=100, format='pdf')
+#ax.set_title(
+#    "Marching step errors function to step size",
+#    loc='left',
+#    weight='bold'
+#)
+fig.savefig(f"{output_path}/{path.basename(prefix_path)}marching_errors.pdf", dpi=100, format='pdf')
 plt.close(fig)
 print(f"Saved 'Marching step errors' plot")
+del marching_errors_counts
+gc.collect()
+
+################################################
+#              PLOT MEAN RAY TIMES             #
+################################################
+## DATA
+# Marching
+ray_times_marching = []
+for step_index in range(len(steps_values)):
+    ray_times_marching.append([sum(step_times) for step_times in times_marching[step_index]])
+marching_quantiles_025, marching_median, marching_quantiles_075 = np.quantile(ray_times_marching, [0.25,0.5,0.75], axis=1)
+# Slabs
+slabs_median = [np.median([ sum(step_times) for step_times in times_slabs ]) ] * len(steps_values)# Constant list
+
+## FIGURE
+fig = plt.figure(figsize=(16,9))
+ax = fig.add_subplot()
+ax.plot(steps_values, marching_median, 'o-', label='Marching Slabs')
+ax.fill_between(steps_values, marching_quantiles_025, marching_quantiles_075, alpha=.3, linewidth=0)
+ax.plot(steps_values, slabs_median, 'x-', label='Classical Slabs')
+
+ax.set_xlabel('Marching step size')
+ax.set_ylabel('Median ray time (µs)')
+ax.grid(True)
+ax.legend()
+#ax.set_title(
+#    "Median ray shooting compute time function to step size",
+#    loc='left',
+#    weight='bold'
+#)
+fig.savefig(f"{output_path}/{path.basename(prefix_path)}median_ray_times.pdf", dpi=100, format='pdf')
+plt.close(fig)
+print(f"Saved 'Median ray times' plot")
+gc.collect()
+
+################################################
+#         PLOT HITTING MEAN RAY TIMES          #
+################################################
+## DATA
+# Marching
+hitting_ray_times_marching = []
+for step_index in range(len(steps_values)):
+    hitting_ray_times_marching.append(
+        [ np.sum(times) for i,times in enumerate(ray_times_marching[step_index])
+          if util.point_in_bounds(traces_marching[step_index][i][-1]) ])
+marching_quantiles_025, marching_median, marching_quantiles_075 = [], [], []
+for step_index in range(len(steps_values)):
+    marching_quantiles_025.append(np.quantile(hitting_ray_times_marching[step_index], 0.25))
+    marching_median.append(np.median(hitting_ray_times_marching[step_index]))
+    marching_quantiles_075.append(np.quantile(hitting_ray_times_marching[step_index], 0.75))
+# Slabs
+slabs_median_ = [np.median(
+    [ sum(step_times) for i,step_times in enumerate(times_slabs) if util.point_in_bounds(traces_slabs[i][-1]) ])] * len(steps_values)# Constant list
+
+## FIGURE
+fig = plt.figure(figsize=(16,9))
+ax = fig.add_subplot()
+ax.plot(steps_values, marching_median, 'o-', label='Marching Slabs')
+ax.fill_between(steps_values, marching_quantiles_025, marching_quantiles_075, alpha=.3, linewidth=0)
+ax.plot(steps_values, slabs_median, 'x-', label='Classical Slabs')
+
+ax.set_xlabel('Marching step size')
+ax.set_ylabel('Median ray time (µs)')
+ax.grid(True)
+ax.legend()
+#ax.set_title(
+#    "Median ray shooting compute time function to step size",
+#    loc='left',
+#    weight='bold'
+#)
+fig.savefig(f"{output_path}/{path.basename(prefix_path)}median_hitting_times.pdf", dpi=100, format='pdf')
+plt.close(fig)
+print(f"Saved 'Median hitting ray times' plot")
+gc.collect()
+
+################################################
+#         PLOT MISSING MEAN RAY TIMES          #
+################################################
+## DATA
+missing_ray_times_marching = []
+for step_index in range(len(steps_values)):
+    missing_ray_times_marching.append(
+        [ np.sum(times) for i,times in enumerate(ray_times_marching[step_index])
+          if not util.point_in_bounds(traces_marching[step_index][i][-1]) ])
+marching_quantiles_025, marching_median, marching_quantiles_075 = [], [], []
+for step_index in range(len(steps_values)):
+    marching_quantiles_025.append(np.quantile(missing_ray_times_marching[step_index], 0.25))
+    marching_median.append(np.median(missing_ray_times_marching[step_index]))
+    marching_quantiles_075.append(np.quantile(missing_ray_times_marching[step_index], 0.75))
+# Slabs
+slabs_median_ = [np.median(
+    [ sum(step_times) for i,step_times in enumerate(times_slabs) if not util.point_in_bounds(traces_slabs[i][-1]) ])] * len(steps_values)# Constant list
+
+
+## FIGURE
+fig = plt.figure(figsize=(16,9))
+ax = fig.add_subplot()
+ax.plot(steps_values, marching_median, 'o-', label='Marching Slabs')
+ax.fill_between(steps_values, marching_quantiles_025, marching_quantiles_075, alpha=.3, linewidth=0)
+ax.plot(steps_values, slabs_median, 'x-', label='Classical Slabs')
+
+ax.set_xlabel('Marching step size')
+ax.set_ylabel('Median ray time (µs)')
+ax.grid(True)
+ax.legend()
+#ax.set_title(
+#    "Median ray shooting compute time function to step size",
+#    loc='left',
+#    weight='bold'
+#)
+fig.savefig(f"{output_path}/{path.basename(prefix_path)}median_missing_times.pdf", dpi=100, format='pdf')
+plt.close(fig)
+print(f"Saved 'Median missing ray times' plot")
+gc.collect()
