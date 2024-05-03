@@ -24,10 +24,10 @@ parsed_args = util.parse_arguments(
         ("--out", "Sets the folder to output to", str),
     ],
     argv,
-    "== Python tool to compare and plot slabs and marching slabs algorithm =="
+    "== Python tool to compare and plot classic and marching classic algorithm =="
 )
 assert "--prefix" in parsed_args and "--out" in parsed_args
-assert path.isfile(f"{parsed_args["--prefix"]}slabs.txt")
+assert path.isfile(f"{parsed_args["--prefix"]}.txt")
 assert path.isdir(parsed_args["--out"])
 prefix_path:str = parsed_args["--prefix"]
 output_path:str = parsed_args["--out"]
@@ -45,7 +45,7 @@ times_marching = [ [] for _ in steps_values ]
 traces_marching = [ [] for _ in steps_values ]
 # Load all the files 1 by 1
 for step_index, step in enumerate(steps_values):
-    filename = f"{prefix_path}marching_{("%.6f" % step)}.txt"
+    filename = f"{prefix_path}_marching_{("%.6f" % step)}.txt"
     print(f"Loading {filename}")
     util.parse_benchmark(filename, rays_marching[step_index], times_marching[step_index], traces_marching[step_index])
     print(f"Using {resource.getrusage(resource.RUSAGE_SELF).ru_maxrss}B")
@@ -58,15 +58,15 @@ del rays_marching
 N = len(rays)
 
 # Slabs file
-rays_slabs = []
-times_slabs = []
-traces_slabs = []
-util.parse_benchmark(f"{prefix_path}slabs.txt", rays_slabs, times_slabs, traces_slabs)
-print(f"Loaded {prefix_path}slabs.txt")
+rays_classic = []
+times_classic = []
+traces_classic = []
+util.parse_benchmark(f"{prefix_path}.txt", rays_classic, times_classic, traces_classic)
+print(f"Loaded {prefix_path}.txt")
 
 # Check again that all the rays are the same
-assert rays == rays_slabs
-del rays_slabs
+assert rays == rays_classic
+del rays_classic
 
 
 ################################################
@@ -78,27 +78,27 @@ hitting_rays_counts = [ 0 for _ in range(len(steps_values)) ]
 
 for step_index in range(len(steps_values)):
     for i,trace in enumerate(traces_marching[step_index]):
-        # if util.point_in_bounds(trace[-1]) and not util.point_in_bounds(traces_slabs[i][-1]):
+        # if util.point_in_bounds(trace[-1]) and not util.point_in_bounds(traces_classic[i][-1]):
         #     print(f"No intersection found for ray {i} yet marching algorithm stops")
         #     print(f"Ray {i} missed an intersection at step {steps_values[step_index]}")
         #     print(f"Ray: {rays[i]}")
         #     print(trace)
         #     print("---")
-        #     print(traces_slabs[i])
+        #     print(traces_classic[i])
         #     exit(71)
 
-        if not util.point_in_bounds(traces_slabs[i][-1]):
+        if not util.point_in_bounds(traces_classic[i][-1]):
             continue
 
         hitting_rays_counts[step_index] += 1
 
-        if not util.equal_points(trace[-1], traces_slabs[i][-1]):
+        if not util.equal_points(trace[-1], traces_classic[i][-1]):
             marching_errors_counts[step_index] += 1
             # print(f"Ray {i} missed an intersection at step {steps_values[step_index]}")
             # print(f"Ray: {rays[i]}")
             # print(trace)
             # print("---")
-            # print(traces_slabs[i])
+            # print(traces_classic[i])
 
 ## FIGURE
 fig = plt.figure(figsize=(16,9))
@@ -131,14 +131,14 @@ for step_index in range(len(steps_values)):
     ray_times_marching.append([sum(step_times) for step_times in times_marching[step_index]])
 marching_quantiles_025, marching_median, marching_quantiles_075 = np.quantile(ray_times_marching, [0.25,0.5,0.75], axis=1)
 # Slabs
-slabs_median = [np.median([ sum(step_times) for step_times in times_slabs ]) ] * len(steps_values)# Constant list
+classic_median = [np.median([ sum(step_times) for step_times in times_classic ]) ] * len(steps_values)# Constant list
 
 ## FIGURE
 fig = plt.figure(figsize=(16,9))
 ax = fig.add_subplot()
 ax.plot(steps_values, marching_median, 'o-', label='Marching Slabs')
 ax.fill_between(steps_values, marching_quantiles_025, marching_quantiles_075, alpha=.3, linewidth=0)
-ax.plot(steps_values, slabs_median, 'x-', label='Classical Slabs')
+ax.plot(steps_values, classic_median, 'x-', label='Classical Slabs')
 
 ax.set_xlabel('Marching step size')
 ax.set_ylabel('Median ray time (µs)')
@@ -170,15 +170,15 @@ for step_index in range(len(steps_values)):
     marching_median.append(np.median(hitting_ray_times_marching[step_index]))
     marching_quantiles_075.append(np.quantile(hitting_ray_times_marching[step_index], 0.75))
 # Slabs
-slabs_median_ = [np.median(
-    [ sum(step_times) for i,step_times in enumerate(times_slabs) if util.point_in_bounds(traces_slabs[i][-1]) ])] * len(steps_values)# Constant list
+classic_median_ = [np.median(
+    [ sum(step_times) for i,step_times in enumerate(times_classic) if util.point_in_bounds(traces_classic[i][-1]) ])] * len(steps_values)# Constant list
 
 ## FIGURE
 fig = plt.figure(figsize=(16,9))
 ax = fig.add_subplot()
 ax.plot(steps_values, marching_median, 'o-', label='Marching Slabs')
 ax.fill_between(steps_values, marching_quantiles_025, marching_quantiles_075, alpha=.3, linewidth=0)
-ax.plot(steps_values, slabs_median, 'x-', label='Classical Slabs')
+ax.plot(steps_values, classic_median, 'x-', label='Classical Slabs')
 
 ax.set_xlabel('Marching step size')
 ax.set_ylabel('Median ray time (µs)')
@@ -209,8 +209,8 @@ for step_index in range(len(steps_values)):
     marching_median.append(np.median(missing_ray_times_marching[step_index]))
     marching_quantiles_075.append(np.quantile(missing_ray_times_marching[step_index], 0.75))
 # Slabs
-slabs_median_ = [np.median(
-    [ sum(step_times) for i,step_times in enumerate(times_slabs) if not util.point_in_bounds(traces_slabs[i][-1]) ])] * len(steps_values)# Constant list
+classic_median_ = [np.median(
+    [ sum(step_times) for i,step_times in enumerate(times_classic) if not util.point_in_bounds(traces_classic[i][-1]) ])] * len(steps_values)# Constant list
 
 
 ## FIGURE
@@ -218,7 +218,7 @@ fig = plt.figure(figsize=(16,9))
 ax = fig.add_subplot()
 ax.plot(steps_values, marching_median, 'o-', label='Marching Slabs')
 ax.fill_between(steps_values, marching_quantiles_025, marching_quantiles_075, alpha=.3, linewidth=0)
-ax.plot(steps_values, slabs_median, 'x-', label='Classical Slabs')
+ax.plot(steps_values, classic_median, 'x-', label='Classical Slabs')
 
 ax.set_xlabel('Marching step size')
 ax.set_ylabel('Median ray time (µs)')

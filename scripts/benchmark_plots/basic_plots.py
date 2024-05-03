@@ -67,21 +67,30 @@ fig = plt.figure(figsize=(16,9))
 ax = fig.add_subplot()
 
 # Compute mean time for the vertical direction
-x = []
-y = []
+x_miss = []
+y_miss = []
+x_hit = []
+y_hit = []
 for i,ray in enumerate(rays):
-    x.append(float(ray[1][1]))# Only keep the y direction
-    y.append(np.mean(time_data[i]))
+    # Only keep the y direction
+    if util.point_in_bounds(trace_data[i][-1]):
+        x_hit.append(float(ray[1][1]))
+        y_hit.append(np.median(time_data[i]))
+    else:
+        x_miss.append(float(ray[1][1]))
+        y_miss.append(np.median(time_data[i]))
 
-ax.plot(x, y, 'o')
+ax.plot(x_hit, y_hit, 'o', color='red', label='Hitting rays')
+ax.plot(x_miss, y_miss, 'x', color='blue', label='Missing rays')
+
 
 ax.set_xlabel('Vertical ray direction')
-ax.set_ylabel('Mean compute time (µs)')
+ax.set_ylabel('Median compute time (µs)')
 ax.grid(True)
-ax.set_ylim(0, max(y)*1.1)
-#ax.legend()
+#ax.set_ylim(0, max(y)*1.1)
+ax.legend()
 ax.set_title(
-    "Mean compute time on vertical ray direction",
+    "Median compute time on vertical ray direction",
     loc='left',
     weight='bold'
 )
