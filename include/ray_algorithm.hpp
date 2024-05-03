@@ -77,5 +77,29 @@ public:
     bool computeStep(Ray& ray, const SandboxScene& scene);
 };
 
+/**
+ * Fixed marching implementation of the bitmask algorithm for a ray shooting AABB intersection problem.
+ */
+class MarchingBitmaskAlgorithm : public RayAlgorithm {
+private:
+    /**
+     * Step size to use when marching.
+     */
+    double step;
+public:
+    /**
+     * Constructor taking the marching step as a parameter.
+     * @param   d   Double value to put as a step.
+     */
+    MarchingBitmaskAlgorithm(const double& d) : step(d) {}
+    /**
+     * Same Bitmask algorithm but does not go to next voxel, rather uses a march step.
+     * @param   ray     Ray to continue
+     * @param   scene   Voxel scene to use to check for intersections
+     * @return  True if an intersection was found
+     */
+    bool computeStep(Ray& ray, const SandboxScene& scene);
+};
+
 #endif//__RAYCAST_RAY_ALGORITHM__
 

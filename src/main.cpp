@@ -84,11 +84,14 @@ int main(const int argc, const char** argv) {
     case RayAlgorithms::SLABS:
         ray_algorithm = std::make_unique<SlabAlgorithm>();
         break;
-    case RayAlgorithms::MARCHING:
+    case RayAlgorithms::SLABS_MARCHING:
         ray_algorithm = std::make_unique<MarchingSlabAlgorithm>(args.marching_step);
         break;
     case RayAlgorithms::BITMASK:
         ray_algorithm = std::make_unique<BitmaskAlgorithm>();
+        break;
+    case RayAlgorithms::BITMASK_MARCHING:
+        ray_algorithm = std::make_unique<MarchingBitmaskAlgorithm>(args.marching_step);
         break;
     }
 
@@ -96,11 +99,12 @@ int main(const int argc, const char** argv) {
         // Shoot N rays and measure the execution time.
         constexpr int N = 10000;
         constexpr int initial_seed = 1;
-        const std::string output_filename =
-            "benchmark_"+std::filesystem::path(args.chunkPath).stem().string()+'_'
+        const std::string output_filename = args.output_folder+'/'
+            +"benchmark_"+std::filesystem::path(args.chunkPath).stem().string()+'_'
             +std::to_string(N)+'_'+convert_to_string(args.ray_algorithm)
-            +(args.ray_algorithm == RayAlgorithms::MARCHING ?
-                '_'+std::to_string(args.marching_step) : "") +".txt";
+            +((args.ray_algorithm == RayAlgorithms::SLABS_MARCHING
+              || args.ray_algorithm == RayAlgorithms::BITMASK_MARCHING)
+              ? '_'+std::to_string(args.marching_step) : "") +".txt";
         std::ofstream output(output_filename, std::ios_base::out);
 
         if (args.verbose)

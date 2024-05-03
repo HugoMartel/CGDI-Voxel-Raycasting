@@ -12,10 +12,11 @@
 /**
  * Lookup table used to convert a RayAlgorithms enum item to string.
  */
-std::array<std::string, 3> ray_algorithms_lookup({
+std::array<std::string, 4> ray_algorithms_lookup({
     "slabs",
-    "marching",
-    "bitmask"
+    "slabs_marching",
+    "bitmask",
+    "bitmask_marching"
 });
 
 std::ostream& operator<<(std::ostream& os, const RayAlgorithms& a) {
@@ -29,8 +30,7 @@ std::string convert_to_string(const RayAlgorithms& a) {
 
 
 ArgParser::ArgParser(const int argc, const char** argv)
-: chunkPath(""), shapesPath(BLOCK_SHAPES_FILE_PATH), section(0),
-  ray_algorithm(RayAlgorithms::SLABS), marching_step(0.1), verbose(false), benchmark(false) {
+: chunkPath(""), shapesPath(BLOCK_SHAPES_FILE_PATH), section(0), ray_algorithm(RayAlgorithms::SLABS), marching_step(0.1), verbose(false), benchmark(false), output_folder(".") {
     // Iterate on the arguments
     for (int i=1; i<argc; ++i) {
         if (!std::strcmp(argv[i], "--verbose")) {
@@ -39,6 +39,17 @@ ArgParser::ArgParser(const int argc, const char** argv)
         } else if (!std::strcmp(argv[i], "--benchmark")) {
             // --benchmark
             benchmark = true;
+        } else if (!std::strcmp(argv[i], "--output") || !std::strcmp(argv[i], "-o")) {
+            // --output
+            if (i+1 == argc) {
+                std::cout << "Missing output folder path after the --output,-o argument\n";
+                exit(-1);
+            } else if (argv[i+1][0] == '-') {
+                std::cout << "Missing output folder path after the --output,-o argument\n";
+                exit(-1);
+            }
+            output_folder = argv[i+1];
+            ++i;
         } else if (!std::strcmp(argv[i], "--chunk") || !std::strcmp(argv[i], "-c")) {
             // --chunk
             if (i+1 == argc) {
@@ -85,10 +96,12 @@ ArgParser::ArgParser(const int argc, const char** argv)
             }
             if (!strcmp(argv[i+1], "slabs"))
                 ray_algorithm = RayAlgorithms::SLABS;
-            else if (!strcmp(argv[i+1], "marching"))
-                ray_algorithm = RayAlgorithms::MARCHING;
+            else if (!strcmp(argv[i+1], "slabs_marching"))
+                ray_algorithm = RayAlgorithms::SLABS_MARCHING;
             else if (!strcmp(argv[i+1], "bitmask"))
                 ray_algorithm = RayAlgorithms::BITMASK;
+            else if (!strcmp(argv[i+1], "bitmask_marching"))
+                ray_algorithm = RayAlgorithms::BITMASK_MARCHING;
             else {
                 std::cout << "Bad algorithm name after the --algorithm,-a argument\n";
                 exit(-1);
@@ -120,6 +133,7 @@ ArgParser::ArgParser(const int argc, const char** argv)
 
     assert(std::filesystem::exists(chunkPath));
     assert(std::filesystem::exists(shapesPath));
+    assert(std::filesystem::exists(output_folder));
     // assert(section >= -4 && section <= 15);
     // The Wiki is unclear about these values, maybe they are false
 }

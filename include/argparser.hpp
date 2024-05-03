@@ -15,9 +15,10 @@
  * Enum storing all the possible algorithm types that can be used in the program.
  */
 enum RayAlgorithms {
-    SLABS    = 0,
-    MARCHING = 1,
-    BITMASK  = 2
+    SLABS            = 0,
+    SLABS_MARCHING   = 1,
+    BITMASK          = 2,
+    BITMASK_MARCHING = 3
 };
 
 /**
@@ -72,6 +73,10 @@ public:
      * Enables benchmark mode.
      */
     bool benchmark;
+    /**
+     * Benchmark folder to output to.
+     */
+    std::string output_folder;
 
     // Constructors
     /**

@@ -10,7 +10,7 @@
  * Because an AABB has coordinates given in the frame of reference of the first vertex,
  * the origin too should be expressed locally in that frame
  */
-bool rayHitsBox(const Point& origin, const Point& direction, const AABB& box, double& distance) {
+bool slabsRayHitsBox(const Point& origin, const Point& direction, const AABB& box, double& distance) {
     double t_near = -HUGE_VAL;
     double t_far = HUGE_VAL;
 
@@ -61,7 +61,7 @@ bool SlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     for (auto& box: boxes) {
         double distance_to_box;
         Point origin_relative = prev_point - Point(next_tile.x, next_tile.y, next_tile.z);
-        if (rayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
+        if (slabsRayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
             hits_something = true;
             if (distance_to_box < min_distance)
                 min_distance = distance_to_box;
@@ -108,7 +108,7 @@ bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     for (auto& box: boxes) {
         double distance_to_box;
         Point origin_relative = prev_point - Point(current_tile.x, current_tile.y, current_tile.z);
-        if (rayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
+        if (slabsRayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
             hits_something = true;
             if (distance_to_box < min_distance)
                 min_distance = distance_to_box;
@@ -121,7 +121,7 @@ bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
         for (auto& box: next_boxes) {
             double distance_to_box;
             Point origin_relative = prev_point - Point(next_tile.x, next_tile.y, next_tile.z);
-            if (rayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
+            if (slabsRayHitsBox(origin_relative, ray.getDirection(), box, distance_to_box)) {
                 hits_something = true;
                 if (distance_to_box < min_distance)
                     min_distance = distance_to_box;
@@ -141,6 +141,57 @@ bool MarchingSlabAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     return hits_something;
 }
 
+/**
+ * TODO
+ */
+bool bitmaskRayHitsBox(const Point& new_pos, const Point& direction, const AABB& box, double& distance) {
+    const Point radius = box.radius();
+
+    // Equivalent of glm::sign
+    Point sgn(
+        direction.x() >= 0 ? -1 : 1,
+        direction.y() >= 0 ? -1 : 1,
+        direction.z() >= 0 ? -1 : 1
+    );
+
+    // Distance to plane
+    Point d(
+        radius.x() * sgn.x() - new_pos.x(),
+        radius.y() * sgn.y() - new_pos.y(),
+        radius.z() * sgn.z() - new_pos.z()
+    );
+
+    d.x() /= direction.x();
+    d.y() /= direction.y();
+    d.z() /= direction.z();
+
+    bool test_x =
+        (d.x() >= 0.)
+            && (std::abs(new_pos.y() + direction.y() * d.x()) <= radius.y())
+            && (std::abs(new_pos.z() + direction.z() * d.x()) <= radius.z());
+    bool test_y =
+        (d.y() >= 0.)
+            && (std::abs(new_pos.z() + direction.z() * d.y()) <= radius.z())
+            && (std::abs(new_pos.x() + direction.x() * d.y()) <= radius.x());
+    bool test_z =
+        (d.z() >= 0.)
+            && (std::abs(new_pos.x() + direction.x() * d.z()) <= radius.x())
+            && (std::abs(new_pos.y() + direction.y() * d.z()) <= radius.y());
+
+    sgn = test_x ? Point(sgn.x(),0.,0.)
+        : (test_y ? Point(0.,sgn.y(),0.)
+            : Point(0.,0., test_z ? sgn.z() : 0));
+
+    // Set the distance
+    distance = (sgn.x() != 0) ? d.x() : ((sgn.y() != 0) ? d.y() : d.z());
+    // normal = sgn;
+
+    if (test_x || test_y || test_z)
+        return true;
+    else
+        return false;
+}
+
 bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
     // Get the last trace point and get the associated voxel to test
     const Point ray_pos = ray.getLastTracePoint();
@@ -153,50 +204,9 @@ bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
 
     // Check all the AABBs of the current voxel to check for intersection
     for (const AABB& box : curr_voxel.getContents()) {
-        const Point radius = box.radius();
-
-        // ray.origin = ray.origin - box.center;
         Point new_pos = ray_pos - (box.center() + Point(vp.x, vp.y, vp.z));
-
-        // Equivalent of glm::sign
-        Point sgn(
-            ray.getDirection().x() >= 0 ? -1 : 1,
-            ray.getDirection().y() >= 0 ? -1 : 1,
-            ray.getDirection().z() >= 0 ? -1 : 1
-        );
-
-        // Distance to plane
-        Point d(
-            radius.x() * sgn.x() - new_pos.x(),
-            radius.y() * sgn.y() - new_pos.y(),
-            radius.z() * sgn.z() - new_pos.z()
-        );
-
-        d.x() /= ray.getDirection().x();
-        d.y() /= ray.getDirection().y();
-        d.z() /= ray.getDirection().z();
-
-        bool test_x =
-            (d.x() >= 0.)
-            && (std::abs(new_pos.y() + ray.getDirection().y() * d.x()) <= radius.y())
-            && (std::abs(new_pos.z() + ray.getDirection().z() * d.x()) <= radius.z());
-        bool test_y =
-            (d.y() >= 0.)
-                && (std::abs(new_pos.z() + ray.getDirection().z() * d.y()) <= radius.z())
-                && (std::abs(new_pos.x() + ray.getDirection().x() * d.y()) <= radius.x());
-        bool test_z =
-            (d.z() >= 0.)
-                && (std::abs(new_pos.x() + ray.getDirection().x() * d.z()) <= radius.x())
-                && (std::abs(new_pos.y() + ray.getDirection().y() * d.z()) <= radius.y());
-
-        sgn = test_x ? Point(sgn.x(),0.,0.)
-            : (test_y ? Point(0.,sgn.y(),0.)
-                : Point(0.,0., test_z ? sgn.z() : 0));
-
-        double distance = (sgn.x() != 0) ? d.x() : ((sgn.y() != 0) ? d.y() : d.z());
-        // normal = sgn;
-
-        if (test_x || test_y || test_z) {
+        double distance;
+        if (bitmaskRayHitsBox(new_pos, ray.getDirection(), box, distance)) {
             if (distance < min_distance)
                 min_distance = distance;
             hits_something = true;
@@ -224,6 +234,54 @@ bool BitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
                 distance_to_next_voxel = distance;
         }
         Point new_point(ray_pos + ray.getDirection()*distance_to_next_voxel);
+        ray.addTrace(new_point);
+        return false;
+    }
+}
+
+bool MarchingBitmaskAlgorithm::computeStep(Ray& ray, const SandboxScene& scene) {
+    // Get the last trace point and get the associated voxel to test
+    const Point ray_pos = ray.getLastTracePoint();
+    VoxelPosition curr_tile(ray_pos);
+
+    // Unlike the classical algorithm, collision candidates may be in the current tile or in the next one
+    Voxel curr_voxel = scene.getVoxel(curr_tile);
+
+    // Only keep the closest hit
+    bool hits_something = false;
+    double min_distance = HUGE_VAL;
+
+    // Check all the AABBs of the current voxel to check for intersection
+    for (const AABB& box : curr_voxel.getContents()) {
+        Point new_pos = ray_pos - (box.center() + Point(curr_tile.x, curr_tile.y, curr_tile.z));
+        double distance;
+        if (bitmaskRayHitsBox(new_pos, ray.getDirection(), box, distance)) {
+            if (distance < min_distance)
+                min_distance = distance;
+            hits_something = true;
+        }
+    }
+
+    VoxelPosition next_tile(ray_pos + ray.getDirection()*this->step);
+    if (!hits_something && curr_tile != next_tile && scene.inBounds(next_tile)) {
+        Voxel next_boxes = scene.getVoxel(next_tile);
+        for (const AABB& box : next_boxes.getContents()) {
+            double distance;
+            Point new_pos = ray_pos - (box.center() + Point(next_tile.x, next_tile.y, next_tile.z));
+            if (bitmaskRayHitsBox(new_pos, ray.getDirection(), box, distance)) {
+                if (distance < min_distance)
+                    min_distance = distance;
+                hits_something = true;
+            }
+        }
+    }
+
+    if (hits_something) {
+        Point new_point(ray_pos + ray.getDirection()*min_distance);
+        ray.addTrace(new_point);
+        return true;
+    } else {
+        Point new_point(ray_pos + ray.getDirection()*this->step);
         ray.addTrace(new_point);
         return false;
     }
